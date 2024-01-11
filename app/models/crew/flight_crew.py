@@ -15,15 +15,26 @@ class FlightCrew(BaseModel):
     medical_validity: date
     base_ops: str
     availability: bool
-    login: Optional[str]
+    login: Optional[str] = None
     pw: str
+    
+    #INIT to set Login=SAP
+    def __init__(self, *args, **kwargs) -> None:
+        """
+        It initializes the instance with the provided
+        argumentsand sets the login attribute to the
+        SAP value if it is None.
+        """
+        super().__init__(*args, **kwargs)
+        if self.login is None:
+            self.login = str(self.sap)
     
     
     # Validations
     # StaffID Validation
     @field_validator("sap")
     @classmethod
-    def is_sap_valid(cls, sap_value):
+    def is_sap_valid(cls, value):
         """
         Check if the SAP (Staff ID) value is valid.
 
@@ -38,15 +49,15 @@ class FlightCrew(BaseModel):
 
         """
         sap_len = 8
-        sap_str = str(sap_value)
+        sap_str = str(value)
         if len(sap_str) != sap_len:
             raise ValueError(f"SAP (Staff ID) Must be exactly {sap_len} digits long.")
-        return sap_value
+        return value
     
     # First Name Validation
     @field_validator("fname")
     @classmethod
-    def is_fname_valid(cls, fname_value):
+    def is_fname_valid(cls, value):
         """
         Check if the first name value is valid.
 
@@ -54,22 +65,24 @@ class FlightCrew(BaseModel):
         - fname_value (str): The first name value to be validated. Auto-passed.
 
         Raises:
-        - ValueError: If the first name value is empty or contains any special characters.
+        - ValueError: If the first name value is empty or contains any special characters or is longer than 255 chars.
 
         Returns:
         - str: The validated first name value.
 
         """
-        if not fname_value:
+        if not value:
             raise ValueError("First name cannot be empty.")
-        if not fname_value.isalpha():
+        if not value.isalpha():
             raise ValueError("First name should only contain alphabetic characters.")
-        return fname_value.title()
+        if len(value) > 255:
+            raise ValueError("First Name length should not exceed 255 characters.")
+        return value.title()
 
     # Last Name Validation
     @field_validator("lname")
     @classmethod
-    def is_lname_valid(cls, lname_value):
+    def is_lname_valid(cls, value):
         """
         Check if the last name value is valid.
 
@@ -77,22 +90,24 @@ class FlightCrew(BaseModel):
         - lname_value (str): The last name value to be validated. Auto-passed.
 
         Raises:
-        - ValueError: If the last name value is empty or contains any special characters.
+        - ValueError: If the last name value is empty or contains any special characters, or is longer than 255 chars.
 
         Returns:
         - str: The validated last name value.
 
         """
-        if not lname_value:
+        if not value:
             raise ValueError("Last name cannot be empty.")
-        if not lname_value.isalpha():
+        if not value.isalpha():
             raise ValueError("Last name should only contain alphabetic characters.")
-        return lname_value.title()
+        if len(value) > 255:
+            raise ValueError("Last Name length should not exceed 255 characters.")
+        return value.title()
     
     # Designation Validation
     @field_validator("desig")
     @classmethod
-    def is_desig_valid(cls, desig_value):
+    def is_desig_valid(cls, value):
         """
         Check if the designation value is valid.
 
@@ -100,22 +115,24 @@ class FlightCrew(BaseModel):
         - desig_value (str): The designation value to be validated. Auto-passed.
 
         Raises:
-        - ValueError: If the designation value is empty or contains any special characters.
+        - ValueError: If the designation value is empty, contains any special characters, or exceeds the length limit.
 
         Returns:
         - str: The validated designation value.
 
         """
-        if not desig_value:
+        if not value:
             raise ValueError("Designation cannot be empty.")
-        if not desig_value.replace(" ", "").isalpha():
+        if not value.replace(" ", "").isalpha():
             raise ValueError("Designation should only contain alphabetic characters and spaces.")
-        return desig_value.title()
+        if len(value) > 255:
+            raise ValueError("Designation length should not exceed 255 characters.")
+        return value.title()
     
     # Mobile Number Validation
     @field_validator("mob")
     @classmethod
-    def is_mob_valid(cls, mob_value):
+    def is_mob_valid(cls, value):
         """
         Check if the mobile number value is valid.
 
@@ -130,15 +147,15 @@ class FlightCrew(BaseModel):
 
         """
         mob_len = 10
-        mob_str = str(mob_value)
+        mob_str = str(value)
         if len(mob_str) != mob_len:
             raise ValueError(f"Mobile number Must be exactly {mob_len} digits long.")
-        return mob_value
+        return value
     
     # ATPL Holder Validation
     @field_validator("atpl_holder")
     @classmethod
-    def is_atpl_holder_valid(cls, atpl_holder_value):
+    def is_atpl_holder_valid(cls, value):
         """
         Check if the ATPL holder value is valid.
 
@@ -152,14 +169,14 @@ class FlightCrew(BaseModel):
         - bool: The validated ATPL holder value.
 
         """
-        if not isinstance(atpl_holder_value, bool):
+        if not isinstance(value, bool):
             raise ValueError("ATPL holder value should be a boolean.")
-        return atpl_holder_value
+        return value
     
     # Licence No. Validity
     @field_validator("licence")
     @classmethod
-    def is_licence_valid(cls, licence_value):
+    def is_licence_valid(cls, value):
         """
         Check if the license value is valid.
 
@@ -174,16 +191,16 @@ class FlightCrew(BaseModel):
 
         """
 
-        if licence_value < 0:
+        if value < 0:
             raise ValueError("License value cannot be negative.")
-        if not licence_value:
+        if not value:
             raise ValueError("Licence Number is mandatory and can not be empty")
-        return licence_value
+        return value
     
     # Medical Validity Validation
     @field_validator("medical_validity")
     @classmethod
-    def is_medical_validity_valid(cls, medical_validity_value):
+    def is_medical_validity_valid(cls, value):
         """
         Check if the medical validity value is valid.
 
@@ -198,14 +215,14 @@ class FlightCrew(BaseModel):
 
         """
         today = date.today()
-        if medical_validity_value < today:
+        if value < today:
             raise ValueError("Medical validity date cannot be in the past.")
-        return medical_validity_value
+        return value
     
     # Base Ops Validation
     @field_validator("base_ops")
     @classmethod
-    def is_base_ops_valid(cls, base_ops_value):
+    def is_base_ops_valid(cls, value):
         """
         Check if the base ops value is valid.
 
@@ -219,16 +236,16 @@ class FlightCrew(BaseModel):
         - str: The validated base ops value.
 
         """
-        if not base_ops_value:
+        if not value:
             raise ValueError("Base ops cannot be empty.")
-        if not base_ops_value.isalpha() or len(base_ops_value) != 3:
+        if not value.isalpha() or len(value) != 3:
             raise ValueError("Base ops should only contain 3 alphabetical characters.")
-        return base_ops_value.upper()
+        return value.upper()
     
     # Availability Validation
     @field_validator("availability")
     @classmethod
-    def is_availability_valid(cls, availability_value):
+    def is_availability_valid(cls, value):
         """
         Check if the availability value is valid.
 
@@ -242,14 +259,15 @@ class FlightCrew(BaseModel):
         - bool: The validated availability value.
 
         """
-        if not isinstance(availability_value, bool):
+        if not isinstance(value, bool):
             raise ValueError("Availability value should be a boolean.")
-        return availability_value
+        return value
     
     # Login Validation
     @field_validator("login")
     @classmethod
-    def is_login_valid(cls, login_value, values):
+    def is_login_valid(cls, value):
+        print ("hello")
         """
         Check if the login value is valid.
 
@@ -257,27 +275,28 @@ class FlightCrew(BaseModel):
         - login_value (str): The login value to be validated. Auto-passed.
 
         Raises:
-        - ValueError: If the login value is not alphanumeric.
+        - ValueError: If the login value is not alphanumeric or exceeds 20 chars in length
 
         Returns:
-        - str: The validated login value of SAP if "login" was empty, else returns provided value.
+        - str: Provided "login" value.
 
         """
-        #Raise error if login is not alphanumeric
-        if not login_value.isalnum():
-            raise ValueError("Login may only contain alphanumeric characters") 
-        
+            
+        # Raise error if login is not alphanumeric
+        if not value.isalnum():
+            raise ValueError("Login may only contain alphanumeric characters")
+        if len(value) > 20:
+            raise ValueError("Login length should not exceed 20 characters.")  
         # Check if provided login value is unique
         def login_isUnique():
             pass
-        
-        validated_login = values.get("sap") if not login_value else login_value
-        return validated_login
+            
+        return value  # Return the modified login value
 
     #Password Validation
     @field_validator("pw")
     @classmethod
-    def is_pw_valid(cls, pw_value):
+    def is_pw_valid(cls, value):
         """
         Check if the password value is valid.
 
@@ -291,8 +310,9 @@ class FlightCrew(BaseModel):
         - str: The validated password value.
 
         """
-        if not pw_value:
+        if not value:
             raise ValueError("Password cannot be empty.")
-        return pw_value
-    
+        if len(value) > 20:
+            raise ValueError("Password length should not exceed 20 characters.")
+        return value
     
