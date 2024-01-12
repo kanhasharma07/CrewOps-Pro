@@ -3,7 +3,23 @@ from typing import Optional
 from pydantic import BaseModel, field_validator
 
 class FlightCrew(BaseModel):
-    
+    """
+FlightCrew class represents a flight crew member.
+
+Attributes:
+    sap (int): The SAP (Staff ID) of the crew member.
+    fname (str): The first name of the crew member.
+    lname (str): The last name of the crew member.
+    desig (str): The designation of the crew member.
+    mob (int): The mobile number of the crew member.
+    atpl_holder (bool): Indicates whether the crew member holds an ATPL license.
+    licence (int): The license number of the crew member.
+    medical_validity (date): The date of medical validity for the crew member.
+    base_ops (str): The base operations of the crew member.
+    availability (bool): Indicates whether the crew member is available.
+    login (Optional[str]): The login of the crew member. Defaults to None.
+    pw (str): The password of the crew member.
+"""
     # Data Fields
     sap: int
     fname: str
@@ -20,11 +36,6 @@ class FlightCrew(BaseModel):
     
     #INIT to set Login=SAP
     def __init__(self, *args, **kwargs) -> None:
-        """
-        It initializes the instance with the provided
-        argumentsand sets the login attribute to the
-        SAP value if it is None.
-        """
         super().__init__(*args, **kwargs)
         if self.login is None:
             self.login = str(self.sap)
