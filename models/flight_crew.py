@@ -290,8 +290,7 @@ class FlightCrew(BaseModel):
         Returns:
         - str: Provided "login" value.
 
-        """
-            
+        """ 
         # Raise error if login is not alphanumeric
         if not value.isalnum():
             raise ValueError("Login may only contain alphanumeric characters")
