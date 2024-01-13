@@ -6,7 +6,18 @@ from models.flight_crew_model import FlightCrewModel
 class FlightCrew:
     
     @staticmethod
-    def addFlightCrew(sap, fname, lname, desig, mob, atpl, license, medical, baseops, avail, pw, login = None):
+    def addFlightCrew(sap: int,
+                      fname: str,
+                      lname: str,
+                      desig: str,
+                      mob: int,
+                      atpl: bool,
+                      license: int,
+                      medical: date,
+                      baseops: str,
+                      avail: bool,
+                      pw: str,
+                      login = None):
         # Creating operational Flight Crew Instance
         pilot = FlightCrewModel(
             sap=sap,
