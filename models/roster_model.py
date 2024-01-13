@@ -2,7 +2,7 @@ from pydantic import BaseModel, field_validator
 from datetime import date
 
 
-class Roster(BaseModel):
+class RosterModel(BaseModel):
     """
     The `Roster` class is a Pydantic model that represents a roster for a flight. It contains data fields for the flight date, flight number, MSN (aircraft serial number), and the IDs of two staff members. It also includes validation methods for each field to ensure the data is valid.
 

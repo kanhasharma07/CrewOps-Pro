@@ -1,8 +1,9 @@
 from datetime import date
+from types import NoneType
 from typing import Optional, Any
 from pydantic import BaseModel, field_validator
 
-class FlightCrew(BaseModel):
+class FlightCrewModel(BaseModel):
     """
     FlightCrew class represents a flight crew member.
 
@@ -38,7 +39,6 @@ class FlightCrew(BaseModel):
     def model_post_init(self, __context: Any) -> None:
         if self.login is None:
             self.login = str(self.sap)
-        print("hello", self.sap, self.login)
         return super().model_post_init(__context)
     
     # Validations
@@ -285,17 +285,12 @@ class FlightCrew(BaseModel):
         - login_value (str): The login value to be validated. Auto-passed.
 
         Raises:
-        - ValueError: If the login value is not alphanumeric or exceeds 20 chars in length
-
+        - ValueError: If the login value is a duplicate.
         Returns:
         - str: Provided "login" value.
 
         """ 
-        # Raise error if login is not alphanumeric
-        if not value.isalnum():
-            raise ValueError("Login may only contain alphanumeric characters")
-        if len(value) > 20:
-            raise ValueError("Login length should not exceed 20 characters.")  
+        
         # Check if provided login value is unique
         def login_isUnique():
             pass

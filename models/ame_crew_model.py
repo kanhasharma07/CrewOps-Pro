@@ -1,7 +1,7 @@
 from typing import Any, Optional
 from pydantic import BaseModel, field_validator
 
-class AMECrew(BaseModel):
+class AMECrewModel(BaseModel):
     """
     AMECrew class represents a crew member in the AME (Aircraft Maintenance Engineer) system.
 

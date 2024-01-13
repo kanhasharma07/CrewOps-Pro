@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import BaseModel, field_validator
 
 
-class Aircraft(BaseModel):
+class AircraftModel(BaseModel):
     
     # Data Fields
     msn: int

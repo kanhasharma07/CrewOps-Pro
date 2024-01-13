@@ -2,7 +2,7 @@ from datetime import time
 from pydantic import BaseModel, field_validator
 
 
-class Flight(BaseModel):
+class FlightModel(BaseModel):
     
     # Data Fields
     flight_no: str

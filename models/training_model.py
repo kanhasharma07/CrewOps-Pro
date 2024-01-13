@@ -2,7 +2,7 @@ import time
 from pydantic import BaseModel, field_validator
 from datetime import date, time
 
-class Training(BaseModel):
+class TrainingModel(BaseModel):
     
     # Data Fields
     training_id: int
