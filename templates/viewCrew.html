@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{%block navbaritem%}active{%endblock%}
+{%block content%}
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Staff ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Designation</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Atpl</th>
+                <th scope="col">License #</th>
+                <th scope="col">Medical Validity</th>
+                <th scope="col">Base Ops</th>
+                <th scope="col">Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for crew in crewView%}
+            <tr>
+                <th scope="row">{{crew[0]}}</th>
+                <td>{{crew[1]+' '+crew[2]}}</td>
+                <td>{{crew[3]}}</td>
+                <td>{{crew[4]}}</td>
+                <td>{{crew[5]}}</td>
+                <td>{{crew[6]}}</td>
+                <td>{{crew[7]}}</td>
+                <td>{{crew[8]}}</td>
+                <td>{{crew[9]}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{%endblock%}

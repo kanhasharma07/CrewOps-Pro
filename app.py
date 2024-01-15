@@ -29,7 +29,6 @@ def addCrew():
             request.form['pw']
         ]
     
-        
         FlightCrew.addCrew(receivedFlightCrewData[0],
                            receivedFlightCrewData[1],
                            receivedFlightCrewData[2],
@@ -47,10 +46,14 @@ def addCrew():
         print(receivedFlightCrewData)
         return render_template('addflightcrewsuccessful.html')
     
-    
-@app.route('/test')
-def test():
-    return render_template('addflightcrewsuccessful.html')
+@app.route('/viewCrew')
+def viewCrew():
+    crewView = FlightCrew.viewCrew()
+    return render_template('viewCrew.html', crewView=crewView)
+
+# @app.route('/test')
+# def test():
+#     return render_template('addflightcrewsuccessful.html')
 
 if __name__=='__main__':
     app.run(port=8000, debug=True)

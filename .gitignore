@@ -161,3 +161,6 @@ cython_debug/
 
 #Specific File Exgensions
 **/.DS_Store
+
+#Utility Test Notebook
+utils.ipynb
