@@ -6,18 +6,18 @@ from models.flight_crew_model import FlightCrewModel
 class FlightCrew:
     
     @staticmethod
-    def addFlightCrew(sap: int,
-                      fname: str,
-                      lname: str,
-                      desig: str,
-                      mob: int,
-                      atpl: bool,
-                      license: int,
-                      medical: date,
-                      baseops: str,
-                      avail: bool,
-                      pw: str,
-                      login = None):
+    def addCrew(sap: int,
+                fname: str,
+                lname: str,
+                desig: str,
+                mob: int,
+                atpl: bool,
+                license: int,
+                medical: date,
+                baseops: str,
+                avail: bool,
+                pw: str,
+                login = None):
         # Creating operational Flight Crew Instance
         pilot = FlightCrewModel(
             sap=sap,
@@ -33,14 +33,20 @@ class FlightCrew:
             login=login,
             pw=pw)
         
-        query = f"""INSERT INTO flight_crew
+        table_name = 'flight_crew'
+        query = f"""INSERT INTO {table_name}
         (staffid, fname, lname, designation, contact, atpl, license_no, medical_validity, base_ops, availability, login, pw)
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         data= tuple(pilot.model_dump().values())
         db.execute(query, data)
         connection.commit()
+    
+    @staticmethod    
+    def deleteCrew(sap):
+        db.execute(f"DELETE FROM flight_crew WHERE staffid = {sap}")
+        connection.commit()
         
-        
+    
         
         
         

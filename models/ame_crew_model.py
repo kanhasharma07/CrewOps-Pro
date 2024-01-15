@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 from pydantic import BaseModel, field_validator
 
 class AMECrewModel(BaseModel):
@@ -16,7 +16,7 @@ class AMECrewModel(BaseModel):
     sap: int
     name: str
     fleet_cert: str
-    login: Optional[str] = None
+    login: str | None = None
     pw: str
     
     #INIT to set Login = SAP
@@ -116,12 +116,6 @@ class AMECrewModel(BaseModel):
         - str: Provided "login" value.
 
         """
-            
-        # Raise error if login is not alphanumeric
-        if not value.isalnum():
-            raise ValueError("Login may only contain alphanumeric characters")
-        if len(value) > 20:
-            raise ValueError("Login length should not exceed 20 characters.")  
         # Check if provided login value is unique
         def login_isUnique():
             pass
