@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{%block content%}
+<div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Flight Crew Successfully Added</h1>
+        <p class="col-md-8 fs-4">You may add more Flight Crew by clicking the button below.</p>
+        <a class="btn btn-primary" href="{{url_for('addCrew')}}" role="button">Add Another Flight Crew</a>
+    </div>
+</div>
+{%endblock%}
