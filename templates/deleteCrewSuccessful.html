@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{%block navbaritem%}active{%endblock%}
+
+{%block content%}
+<div class="p-5 mb-4 bg-success-subtle text-emphasis-success rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Crew Deleted Successfuly</h1>
+        <p class="col-md-8 fs-4">The data corresponding to Staff ID: {{sap}} has been irreversibily deleted. You may add the Crew data again if required.</p>
+        <a class="btn btn-primary" href="{{url_for('home_page')}}" role="button">Return to Home</a>
+        <a class="btn btn-primary" href="{{url_for('viewCrew')}}" role="button">View Crew Database</a>
+    </div>
+</div>
+{%endblock%}

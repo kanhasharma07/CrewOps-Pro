@@ -21,15 +21,15 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% block navbaritem %}{% endblock %}" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {% block navbaritem %}{% endblock %}" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Flight Crew Management
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{url_for('addCrew')}}">Add Flight Crew</a></li>
                             <li><a class="dropdown-item" href="{{url_for('viewCrew')}}">View Crew List</a></li>
                             <li><a class="dropdown-item" href="#">Update Crew Details</a></li>
-                            <li><a class="dropdown-item" href="#">Delete Crew</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('deleteCrew')}}">Delete Crew</a></li>
                             <li><a class="dropdown-item" href="#">Apply for Leave</a></li>
                         </ul>
                     </li>
