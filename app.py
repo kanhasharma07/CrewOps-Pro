@@ -60,6 +60,16 @@ def deleteCrew():
         FlightCrew.deleteCrew(sap=request.form["sap"])
         return render_template("deleteCrewSuccessful.html", sap=request.form["sap"])
 
+@app.route('/applyLeave', methods = ["GET",'POST'])
+def updateAvail():
+    if request.method == "GET":
+        return render_template('updateAvail.html')
+    else:
+        sap = int(request.form['sap'])
+        availBool = request.form['leave']
+        print(sap, availBool)
+        FlightCrew.updateAvail(sap, availBool)
+        return render_template('updateAvailSuccess.html', availBool=availBool)
 
 # @app.route('/test')
 # def test():
