@@ -1,4 +1,5 @@
 from datetime import date
+import json
 from backend.connection import db, connection
 from models.flight_crew_model import FlightCrewModel
 
@@ -64,9 +65,12 @@ class FlightCrew:
 
         return replaceNonBoolean(crewViewList)
 
+    @staticmethod
+    def updateAvail(sap: int, availBool):
+        table_name = "flight_crew"
+        query = f"UPDATE {table_name} SET availability={availBool} WHERE staffid={sap}"
+        db.execute(query)
+        connection.commit()
 
-if __name__ == "__main__:":
-    FlightCrew.viewCrew()
-    # from datetime import date
-    # kanha = FlightCrew()
-    # kanha.addFlightCrew(80050318, "kanha", "sharma", "boss", 9451438366, False, 19854, date(2024, 6, 8), 'bom', True, "helloji")
+
+# if __name__ == "__main__":
