@@ -1,5 +1,6 @@
 from datetime import date
 import json
+from types import NoneType
 from backend.connection import db, connection
 from models.flight_crew_model import FlightCrewModel
 
@@ -66,6 +67,23 @@ class FlightCrew:
         return replaceNonBoolean(crewViewList)
 
     @staticmethod
+    def modifyCrew(sap: int, formData: list):
+        table_name = "flight_crew"
+        query = f'SELECT * FROM {table_name} WHERE staffid={sap}'
+        db.execute(query)
+        oldData = db.fetchone()
+        newData = [val2 if val2!='' else val1 for val1, val2 in zip(oldData, formData)] # type: ignore
+        modelDict = dict(zip(list(FlightCrewModel.__annotations__.keys()), newData))
+        pilot = FlightCrewModel.model_validate(modelDict)
+        db.execute(f'DELETE FROM {table_name} WHERE staffid={sap}')
+        newQuery = f"""INSERT INTO {table_name}
+        (staffid, fname, lname, designation, contact, atpl, license_no, medical_validity, base_ops, availability, login, pw)
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+        data = tuple(pilot.model_dump().values())
+        db.execute(newQuery, data)
+        connection.commit()
+    
+    @staticmethod
     def updateAvail(sap: int, availBool):
         table_name = "flight_crew"
         query = f"UPDATE {table_name} SET availability={availBool} WHERE staffid={sap}"
@@ -74,3 +92,4 @@ class FlightCrew:
 
 
 # if __name__ == "__main__":
+    # FlightCrew.modifyCrew(80050318)

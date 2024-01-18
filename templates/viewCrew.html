@@ -20,14 +20,14 @@
             {%for crew in crewView%}
             <tr>
                 <th scope="row">{{crew[0]}}</th>
-                <td>{{crew[1]+' '+crew[2]}}</td>
+                <td>{{"Capt "+crew[1]+' '+crew[2]}}</td>
                 <td>{{crew[3]}}</td>
                 <td>{{crew[4]}}</td>
                 <td>{{crew[5]}}</td>
                 <td>{{crew[6]}}</td>
                 <td>{{crew[7]}}</td>
                 <td>{{crew[8]}}</td>
-                <td>{{crew[9]}}</td>
+                <td>{{"On Leave" if crew[9]==False else "Available"}}</td>
             </tr>
             {%endfor%}
         </tbody>

@@ -1,0 +1,112 @@
+{%extends 'base.html'%}
+{%block navbaritem%}active{%endblock%}
+{% block content %}
+<!-- Add Flight Crew Input Form -->
+<div class="container">
+    <form action="{{url_for('modifyCrew')}}" method="post">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">SAP (Staff ID)</label>
+            <input type="number" class="form-control" id="sapform" name="sap" aria-describedby="emailHelp">
+        </div>
+
+
+        <div class="row">
+            <div class='col'>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="fnameform" name="fname">
+                </div>
+            </div>
+
+            <div class='col'>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lnameform" name="lname">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class='col'>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Designation</label>
+                    <input type="text" class="form-control" id="desigform" name="desig">
+                </div>
+            </div>
+
+            <div class='col'>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Contact</label>
+                    <input type="number" class="form-control" id="mobform" name="mob">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">License Number</label>
+                    <input type="number" class="form-control" id="desigform" name="license">
+                </div>
+            </div>
+            
+            <div class="col">
+                <label for="exampleInputPassword1" class="form-label">Are you an ATPL Holder?</label>
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                    name="atpl">
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                </select>
+                <label for="floatingSelect">Yes/No</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Username (Login)</label>
+                <input type="text" class="form-control" id="loginform" name="login">
+            </div>
+        </div>
+    </div>
+    
+    
+        <div class="row">
+            <div class='col'>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Medical Valid Until</label>
+                    <input type="date" class="form-control" id="medicalform" name="medical">
+                </div>
+            </div>
+
+            <div class='col'>
+                <label for="exampleInputPassword1" class="form-label">Base of Operations</label>
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                        name="baseops">
+                        <option selected></option>
+                        <option value="DEL">New Delhi</option>
+                        <option value="BOM">Mumbai</option>
+                        <option value="BLR">Bengaluru</option>
+                        <option value="HYD">Hyderabad</option>
+                        <option value="MAA">Chennai</option>
+                        <option value="CCU">Kolkata</option>
+                    </select>
+                    <label for="floatingSelect">Choose Airline Assigned Base</label>
+                </div>
+            </div>
+
+            <div class='col'>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="Password" class="form-control" id="pwform" name="pw">
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
