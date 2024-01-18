@@ -1,5 +1,5 @@
 from datetime import date
-from typing import Any
+from typing import Any, Optional
 from pydantic import BaseModel, field_validator, Field
 
 class FlightCrewModel(BaseModel):
@@ -31,7 +31,7 @@ class FlightCrewModel(BaseModel):
     medical_validity: date
     base_ops: str
     availability: bool
-    login = None
+    login: Optional[str] = None
     pw: str
 
     #INIT to set Login=SAP
