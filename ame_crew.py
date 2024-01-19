@@ -17,7 +17,7 @@ class AMECrew:
         
     @staticmethod    
     def deleteCrew(sap):
-        db.execute(f"DELETE FROM {AMECrew.tablename} WHERE staffid = {sap}")
+        db.execute(f"DELETE FROM {AMECrew.tablename} WHERE staffid={sap}")
         connection.commit()
     
     @staticmethod    

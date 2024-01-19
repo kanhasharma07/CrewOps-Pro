@@ -114,7 +114,13 @@ def viewAME():
     crewData = AMECrew.viewCrew()
     return render_template('viewAME.html', crewData=crewData, actype=actype)
     
-        
+@app.route("/deleteAME", methods=["GET", "POST"])
+def deleteAME():
+    if request.method == "GET":
+        return render_template("deleteAME.html")
+    else:
+        AMECrew.deleteCrew(sap=request.form["sap"])
+        return render_template("deleteAMESuccess.html", sap=request.form["sap"])
 
 # @app.route('/test')
 # def test():

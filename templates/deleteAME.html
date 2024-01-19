@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+
+{%block navbarame%}active{%endblock%}
+
+{%block content%}
+<div class="container">
+    <form action="{{url_for('deleteAME')}}" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">SAP (Staff ID)</label>
+                    <input type="number" class="form-control" id="sapform" name="sap">
+                    <div id="sap" class="form-text">AME Crew data corresponding to this Staff ID will be irrevocably
+                        deleted
+                        from database
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <button type="Delete AME" class="btn btn-primary">Delete AME</button>
+    </form>
+</div>
+{%endblock%}
