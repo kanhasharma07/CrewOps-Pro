@@ -87,9 +87,8 @@ def updateAvail():
     else:
         sap = int(request.form['sap'])
         availBool = request.form['leave']
-        print(sap, availBool)
         FlightCrew.updateAvail(sap, availBool)
-        return render_template('updateAvailSuccess.html', availBool=availBool)
+        return render_template('updateAvailSuccess.html', availBool=availBool, sap=sap)
 
 # @app.route('/test')
 # def test():
@@ -97,3 +96,4 @@ def updateAvail():
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
+
