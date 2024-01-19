@@ -34,12 +34,12 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle {% block navbarame %}{% endblock %}" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             AME
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Add AME Crew</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('addAME')}}">Add AME Crew</a></li>
                             <li><a class="dropdown-item" href="#">View AMEs</a></li>
                             <li><a class="dropdown-item" href="#">Update AME Details</a></li>
                             <li><a class="dropdown-item" href="#">Delete AME</a></li>

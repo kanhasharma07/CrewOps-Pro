@@ -1,5 +1,5 @@
 from flight_crew import FlightCrew
-
+from ame_crew import AMECrew
 from flask import Flask, url_for, redirect, render_template, request
 
 app = Flask(__name__)
@@ -10,7 +10,7 @@ app = Flask(__name__)
 def home_page():
     return render_template("home.html")
 
-
+# Flight Crew Management Routes
 @app.route("/addCrew", methods=["GET", "POST"])
 def addCrew():
     if request.method == "GET":
@@ -60,35 +60,54 @@ def deleteCrew():
         FlightCrew.deleteCrew(sap=request.form["sap"])
         return render_template("deleteCrewSuccessful.html", sap=request.form["sap"])
 
-@app.route('/modifyCrew', methods = ['GET', 'POST'])
-def modifyCrew():
-    if request.method=="GET":
-        return render_template('modifyCrew.html')
-    else:
-        formData = [request.form['sap'],
-                    request.form['fname'],
-                    request.form['lname'],
-                    request.form['desig'],
-                    request.form['mob'],
-                    request.form['atpl'],
-                    request.form['license'],
-                    request.form['medical'],
-                    request.form['baseops'],
-                    "",
-                    request.form['login'],
-                    request.form['pw']]
-        FlightCrew.modifyCrew(int(request.form['sap']), formData)
-        return render_template('modifyCrewSuccess.html', sap=request.form['sap'])
 
-@app.route('/applyLeave', methods = ["GET",'POST'])
+@app.route("/modifyCrew", methods=["GET", "POST"])
+def modifyCrew():
+    if request.method == "GET":
+        return render_template("modifyCrew.html")
+    else:
+        formData = [
+            request.form["sap"],
+            request.form["fname"],
+            request.form["lname"],
+            request.form["desig"],
+            request.form["mob"],
+            request.form["atpl"],
+            request.form["license"],
+            request.form["medical"],
+            request.form["baseops"],
+            "",
+            request.form["login"],
+            request.form["pw"],
+        ]
+        FlightCrew.modifyCrew(int(request.form["sap"]), formData)
+        return render_template("modifyCrewSuccess.html", sap=request.form["sap"])
+
+
+@app.route("/applyLeave", methods=["GET", "POST"])
 def updateAvail():
     if request.method == "GET":
-        return render_template('updateAvail.html')
+        return render_template("updateAvail.html")
     else:
-        sap = int(request.form['sap'])
-        availBool = request.form['leave']
+        sap = int(request.form["sap"])
+        availBool = request.form["leave"]
         FlightCrew.updateAvail(sap, availBool)
-        return render_template('updateAvailSuccess.html', availBool=availBool, sap=sap)
+        return render_template("updateAvailSuccess.html", availBool=availBool, sap=sap)
+
+
+# AME management Routes
+@app.route('/addAME', methods=['GET', 'POST'])
+def addAME():
+    if request.method=="GET":
+        return render_template('addAME.html')
+    else:
+        crewData = [request.form['sap'],
+                    request.form['name'],
+                    request.form['fleet'],
+                    request.form['pw']]
+        AMECrew.addCrew(crewData=crewData)
+        return render_template('addAMEsuccess.html')
+        
 
 # @app.route('/test')
 # def test():
@@ -96,4 +115,3 @@ def updateAvail():
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
-

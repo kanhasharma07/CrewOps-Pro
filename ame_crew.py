@@ -4,13 +4,9 @@ from backend.connection import connection, db
 class AMECrew:
     
     @staticmethod
-    def addCrew(sap: int,
-                name: str,
-                fleet: str, 
-                pw: str, 
-                login = None):
+    def addCrew(crewData: list):
         
-        ame = AMECrewModel(sap=sap, name=name, fleet_cert=fleet, pw=pw, login=login)
+        ame = AMECrewModel(sap=crewData[0], name=crewData[1], fleet_cert=crewData[2], pw=crewData[3], login=None)
         
         tablename = 'ame_crew'
         query = f'INSERT INTO {tablename} (staffid, name, fleet_certified, login, pw) VALUES (%s,%s,%s,%s,%s)'
