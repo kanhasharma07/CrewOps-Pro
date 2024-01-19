@@ -3,13 +3,13 @@ from backend.connection import connection, db
 
 class AMECrew:
     
+    tablename = 'ame_crew'
     @staticmethod
     def addCrew(crewData: list):
         
         ame = AMECrewModel(sap=crewData[0], name=crewData[1], fleet_cert=crewData[2], pw=crewData[3], login=None)
         
-        tablename = 'ame_crew'
-        query = f'INSERT INTO {tablename} (staffid, name, fleet_certified, login, pw) VALUES (%s,%s,%s,%s,%s)'
+        query = f'INSERT INTO {AMECrew.tablename} (staffid, name, fleet_certified, login, pw) VALUES (%s,%s,%s,%s,%s)'
         values = tuple(ame.model_dump().values())
         db.execute(query, values)
         connection.commit()
@@ -17,9 +17,15 @@ class AMECrew:
         
     @staticmethod    
     def deleteCrew(sap):
-        tablename = 'ame_crew'
-        db.execute(f"DELETE FROM {tablename} WHERE staffid = {sap}")
+        db.execute(f"DELETE FROM {AMECrew.tablename} WHERE staffid = {sap}")
         connection.commit()
+    
+    @staticmethod    
+    def viewCrew():
+        query = f'SELECT * FROM {AMECrew.tablename}'
+        db.execute(query)
+        return db.fetchall()
+        
         
 
 

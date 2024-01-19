@@ -107,6 +107,13 @@ def addAME():
                     request.form['pw']]
         AMECrew.addCrew(crewData=crewData)
         return render_template('addAMEsuccess.html')
+    
+@app.route('/viewAME')
+def viewAME():
+    actype = {'A320':'Airbus A320', 'B737':'Boeing 737', 'B777':'Boeing 777', 'B787': 'Boeing 787', 'A350':'Airbus A350'}
+    crewData = AMECrew.viewCrew()
+    return render_template('viewAME.html', crewData=crewData, actype=actype)
+    
         
 
 # @app.route('/test')
