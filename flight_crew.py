@@ -6,6 +6,7 @@ from models.flight_crew_model import FlightCrewModel
 
 
 class FlightCrew:
+    tablename = 'flight_crew'
     @staticmethod
     def addCrew(
         sap,
@@ -37,8 +38,7 @@ class FlightCrew:
             pw=pw,
         )
 
-        table_name = "flight_crew"
-        query = f"""INSERT INTO {table_name}
+        query = f"""INSERT INTO {FlightCrew.tablename}
         (staffid, fname, lname, designation, contact, atpl, license_no, medical_validity, base_ops, availability, login, pw)
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         data = tuple(pilot.model_dump().values())
@@ -47,13 +47,12 @@ class FlightCrew:
 
     @staticmethod
     def deleteCrew(sap):
-        db.execute(f"DELETE FROM flight_crew WHERE staffid = {sap}")
+        db.execute(f"DELETE FROM {FlightCrew.tablename}WHERE staffid = {sap}")
         connection.commit()
 
     @staticmethod
     def viewCrew():
-        table_name = "flight_crew"
-        query = f"SELECT * FROM {table_name}"
+        query = f"SELECT * FROM {FlightCrew.tablename}"
         db.execute(query)
         crewViewList = db.fetchall()
 
@@ -68,15 +67,14 @@ class FlightCrew:
 
     @staticmethod
     def modifyCrew(sap: int, formData: list):
-        table_name = "flight_crew"
-        query = f'SELECT * FROM {table_name} WHERE staffid={sap}'
+        query = f'SELECT * FROM {FlightCrew.tablename} WHERE staffid={sap}'
         db.execute(query)
         oldData = db.fetchone()
         newData = [val2 if val2!='' else val1 for val1, val2 in zip(oldData, formData)] # type: ignore
         modelDict = dict(zip(list(FlightCrewModel.__annotations__.keys()), newData))
         pilot = FlightCrewModel.model_validate(modelDict)
-        db.execute(f'DELETE FROM {table_name} WHERE staffid={sap}')
-        newQuery = f"""INSERT INTO {table_name}
+        db.execute(f'DELETE FROM {FlightCrew.tablename} WHERE staffid={sap}')
+        newQuery = f"""INSERT INTO {FlightCrew.tablename}
         (staffid, fname, lname, designation, contact, atpl, license_no, medical_validity, base_ops, availability, login, pw)
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         data = tuple(pilot.model_dump().values())
@@ -85,8 +83,7 @@ class FlightCrew:
     
     @staticmethod
     def updateAvail(sap: int, availBool):
-        table_name = "flight_crew"
-        query = f"UPDATE {table_name} SET availability={availBool} WHERE staffid={sap}"
+        query = f"UPDATE {FlightCrew.tablename} SET availability={availBool} WHERE staffid={sap}"
         db.execute(query)
         connection.commit()
 
