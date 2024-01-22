@@ -11,6 +11,7 @@ app = Flask(__name__)
 def home_page():
     return render_template("home.html")
 
+
 # Flight Crew Management Routes
 @app.route("/addCrew", methods=["GET", "POST"])
 def addCrew():
@@ -97,24 +98,34 @@ def updateAvail():
 
 
 # AME management Routes
-@app.route('/addAME', methods=['GET', 'POST'])
+@app.route("/addAME", methods=["GET", "POST"])
 def addAME():
-    if request.method=="GET":
-        return render_template('addAME.html')
+    if request.method == "GET":
+        return render_template("addAME.html")
     else:
-        crewData = [request.form['sap'],
-                    request.form['name'],
-                    request.form['fleet'],
-                    request.form['pw']]
+        crewData = [
+            request.form["sap"],
+            request.form["name"],
+            request.form["fleet"],
+            request.form["pw"],
+        ]
         AMECrew.addCrew(crewData=crewData)
-        return render_template('addAMEsuccess.html')
-    
-@app.route('/viewAME')
+        return render_template("addAMEsuccess.html")
+
+
+@app.route("/viewAME")
 def viewAME():
-    actype = {'A320':'Airbus A320', 'B737':'Boeing 737', 'B777':'Boeing 777', 'B787': 'Boeing 787', 'A350':'Airbus A350'}
+    actype = {
+        "A320": "Airbus A320",
+        "B737": "Boeing 737",
+        "B777": "Boeing 777",
+        "B787": "Boeing 787",
+        "A350": "Airbus A350",
+    }
     crewData = AMECrew.viewCrew()
-    return render_template('viewAME.html', crewData=crewData, actype=actype)
-    
+    return render_template("viewAME.html", crewData=crewData, actype=actype)
+
+
 @app.route("/deleteAME", methods=["GET", "POST"])
 def deleteAME():
     if request.method == "GET":
@@ -122,19 +133,23 @@ def deleteAME():
     else:
         AMECrew.deleteCrew(sap=request.form["sap"])
         return render_template("deleteAMESuccess.html", sap=request.form["sap"])
-    
-@app.route('/modifyAME', methods=['POST', 'GET']) # type: ignore
+
+
+@app.route("/modifyAME", methods=["POST", "GET"])  # type: ignore
 def modifyAME():
-    if request.method == 'GET':
-        return render_template('modifyAME.html')
+    if request.method == "GET":
+        return render_template("modifyAME.html")
     else:
-        oldData = [request.form['sap'],
-                  request.form['name'],
-                  request.form['fleet'],
-                  request.form['login'],
-                  request.form['pw']]
-        AMECrew.modifyCrew(oldData, int(request.form['sap']))
-        return render_template('modifyAMESuccess.html')
+        oldData = [
+            request.form["sap"],
+            request.form["name"],
+            request.form["fleet"],
+            request.form["login"],
+            request.form["pw"],
+        ]
+        AMECrew.modifyCrew(oldData, int(request.form["sap"]))
+        return render_template("modifyAMESuccess.html")
+
 
 # @app.route('/test')
 # def test():
