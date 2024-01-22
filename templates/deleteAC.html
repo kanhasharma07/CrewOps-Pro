@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+
+{%block navbarac%}active{%endblock%}
+
+{%block content%}
+<div class="container">
+    <form action="{{url_for('deleteAC')}}" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">MSN</label>
+                    <input type="number" class="form-control" id="sapform" name="msn">
+                    <div id="sap" class="form-text">Aircraft corresponding to this MSN will be irrevocably
+                        deleted from the database.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <button type="Delete Aircraft" class="btn btn-primary">Delete Aircraft</button>
+    </form>
+</div>
+{%endblock%}

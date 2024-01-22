@@ -16,3 +16,9 @@ class Aircraft:
         query = f"SELECT * FROM {Aircraft.tablename}"
         db.execute(query)
         return db.fetchall()
+    
+    @staticmethod
+    def deleteAC(msn: int):
+        query = f'DELETE FROM {Aircraft.tablename} WHERE msn={msn}'
+        db.execute(query)
+        connection.commit()

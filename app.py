@@ -1,4 +1,3 @@
-from crypt import methods
 from aircraft import Aircraft
 from flight_crew import FlightCrew
 from ame_crew import AMECrew
@@ -181,6 +180,15 @@ def viewAC():
     acData = Aircraft.viewAC()
     return render_template("viewAC.html", acData=acData, actype=actype)
 
+@app.route('/deleteAC', methods=["POST", "GET"])
+def deleteAC():
+    if request.method=='GET':
+        return render_template('deleteAC.html')
+    else:
+        msn = request.form['msn']
+        Aircraft.deleteAC(int(msn))
+        return render_template('deleteACSuccess.html', msn=msn)
+    
 # @app.route('/test')
 # def test():
 #     return render_template('deleteCrew.html')
