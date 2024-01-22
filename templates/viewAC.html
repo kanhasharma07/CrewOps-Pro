@@ -1,0 +1,30 @@
+{%extends 'base.html'%}
+{%block navbarame%}active{%endblock%}
+{%block content%}
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">MSN</th>
+                <th scope="col">A/C Type</th>
+                <th scope="col">Registration</th>
+                <th scope="col">Engine</th>
+                <th scope="col">Engine Runtime</th>
+                <th scope="col">Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for ac in acData%}
+            <tr>
+                <th scope="row">{{ac[0]}}</th>
+                <td>{{ '['+ac[1]+'] '+ actype[ac[1]] }}</td>
+                <td>{{ac[2]}}</td>
+                <td>{{ac[4]}}</td>
+                <td>{{ac[5]}}</td>
+                <td>{{"Available" if ac[3]==1 else 'Maintenance' }}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{%endblock%}

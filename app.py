@@ -159,16 +159,27 @@ def addAC():
         return render_template("addAC.html")
     else:
         acdata = [
-            request.form['msn'],
-            request.form['type'],
-            request.form['regn'],
-            request.form['avail'],
-            request.form['engine'],
-            request.form['engine_hours']
+            request.form["msn"],
+            request.form["type"],
+            request.form["regn"],
+            request.form["avail"],
+            request.form["engine"],
+            request.form["engine_hours"],
         ]
         Aircraft.addAircraft(acdata)
         return render_template("addACSuccess.html")
 
+@app.route('/viewAC')
+def viewAC():
+    actype = {
+        "A320": "Airbus A320",
+        "B737": "Boeing 737",
+        "B777": "Boeing 777",
+        "B787": "Boeing 787",
+        "A350": "Airbus A350",
+    }
+    acData = Aircraft.viewAC()
+    return render_template("viewAC.html", acData=acData, actype=actype)
 
 # @app.route('/test')
 # def test():

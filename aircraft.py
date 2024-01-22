@@ -10,3 +10,9 @@ class Aircraft:
         query = f'INSERT INTO {Aircraft.tablename} (msn, type, regn, availability, engine, engine_hours) VALUES (%s,%s,%s,%s,%s,%s)'
         db.execute(query, tuple(aeroplane.model_dump().values()))
         connection.commit()
+        
+    @staticmethod
+    def viewAC():
+        query = f"SELECT * FROM {Aircraft.tablename}"
+        db.execute(query)
+        return db.fetchall()
