@@ -26,6 +26,19 @@ class AMECrew:
         db.execute(query)
         return db.fetchall()
         
+    @staticmethod
+    def modifyCrew(newData: list, sap: int):
+        query = f'SELECT * FROM {AMECrew.tablename} WHERE staffid={sap}'
+        db.execute(query)
+        oldData = db.fetchone()
+        newData = [val2 if val2!="" else val1 for val1, val2 in zip(oldData, newData)] # type: ignore
+        modelDict = dict(zip(AMECrewModel.__annotations__.keys(),newData))
+        ame = AMECrewModel.model_validate(modelDict)
+        db.execute(f'DELETE FROM {AMECrew.tablename} WHERE staffid={sap}')
+        queryNew = f"INSERT INTO {AMECrew.tablename} (staffid, name, fleet_certified, login, pw) VALUES (%s,%s,%s,%s,%s)"
+        data = tuple(ame.model_dump().values())
+        db.execute(queryNew, data)
+        connection.commit()
         
 
 

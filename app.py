@@ -1,3 +1,4 @@
+from crypt import methods
 from flight_crew import FlightCrew
 from ame_crew import AMECrew
 from flask import Flask, url_for, redirect, render_template, request
@@ -121,6 +122,19 @@ def deleteAME():
     else:
         AMECrew.deleteCrew(sap=request.form["sap"])
         return render_template("deleteAMESuccess.html", sap=request.form["sap"])
+    
+@app.route('/modifyAME', methods=['POST', 'GET']) # type: ignore
+def modifyAME():
+    if request.method == 'GET':
+        return render_template('modifyAME.html')
+    else:
+        oldData = [request.form['sap'],
+                  request.form['name'],
+                  request.form['fleet'],
+                  request.form['login'],
+                  request.form['pw']]
+        AMECrew.modifyCrew(oldData, int(request.form['sap']))
+        return render_template('modifyAMESuccess.html')
 
 # @app.route('/test')
 # def test():

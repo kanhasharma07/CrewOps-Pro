@@ -41,8 +41,20 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{url_for('addAME')}}">Add AME Crew</a></li>
                             <li><a class="dropdown-item" href="{{url_for('viewAME')}}">View AMEs</a></li>
-                            <li><a class="dropdown-item" href="#">Update AME Details</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('modifyAME')}}">Update AME Details</a></li>
                             <li><a class="dropdown-item" href="{{url_for('deleteAME')}}">Delete AME</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% block navbaracft %}{% endblock %}" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Aircaft Fleet
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{url_for('addAME')}}">Add New Aircaft/a></li>
+                            <li><a class="dropdown-item" href="{{url_for('viewAME')}}">View Fleet</a></li>
+                            <li><a class="dropdown-item" href="#">Update Aircraft Details</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('deleteAME')}}">Delete Aircraft</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

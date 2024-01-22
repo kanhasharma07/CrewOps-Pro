@@ -6,7 +6,8 @@ from models.flight_crew_model import FlightCrewModel
 
 
 class FlightCrew:
-    tablename = 'flight_crew'
+    tablename = "flight_crew"
+
     @staticmethod
     def addCrew(
         sap,
@@ -67,20 +68,20 @@ class FlightCrew:
 
     @staticmethod
     def modifyCrew(sap: int, formData: list):
-        query = f'SELECT * FROM {FlightCrew.tablename} WHERE staffid={sap}'
+        query = f"SELECT * FROM {FlightCrew.tablename} WHERE staffid={sap}"
         db.execute(query)
         oldData = db.fetchone()
-        newData = [val2 if val2!='' else val1 for val1, val2 in zip(oldData, formData)] # type: ignore
+        newData = [val2 if val2 != "" else val1 for val1, val2 in zip(oldData, formData)]  # type: ignore
         modelDict = dict(zip(list(FlightCrewModel.__annotations__.keys()), newData))
         pilot = FlightCrewModel.model_validate(modelDict)
-        db.execute(f'DELETE FROM {FlightCrew.tablename} WHERE staffid={sap}')
+        db.execute(f"DELETE FROM {FlightCrew.tablename} WHERE staffid={sap}")
         newQuery = f"""INSERT INTO {FlightCrew.tablename}
         (staffid, fname, lname, designation, contact, atpl, license_no, medical_validity, base_ops, availability, login, pw)
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         data = tuple(pilot.model_dump().values())
         db.execute(newQuery, data)
         connection.commit()
-    
+
     @staticmethod
     def updateAvail(sap: int, availBool):
         query = f"UPDATE {FlightCrew.tablename} SET availability={availBool} WHERE staffid={sap}"
@@ -89,4 +90,4 @@ class FlightCrew:
 
 
 # if __name__ == "__main__":
-    # FlightCrew.modifyCrew(80050318)
+# FlightCrew.modifyCrew(80050318)

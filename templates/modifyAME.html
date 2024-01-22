@@ -5,25 +5,23 @@
 {% block content %}
 <!-- Add AME Crew Info Form -->
 <div class="container">
-    <form action="{{url_for('addAME')}}" method="post">
+    <form action="{{url_for('modifyAME')}}" method="post">
         <div class="row">
             <div class="col">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">SAP (Staff ID)</label>
                     <input type="number" class="form-control" id="sapform" name="sap" aria-describedby="emailHelp">
+                    <p>Mandatory Field</p>
                 </div>
             </div>
+
             <div class='col'>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Name</label>
                     <input type="text" class="form-control" id="nameform" name="name">
                 </div>
             </div>
-        </div>
 
-
-
-        <div class="row">
             <div class="col">
                 <label for="exampleInputPassword1" class="form-label">Fleet Certified</label>
                 <div class="form-floating">
@@ -38,6 +36,16 @@
                     <label for="floatingSelect">Yes/No</label>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            <div class='col'>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Login ID (Username)</label>
+                    <input type="text" class="form-control" id="nameform" name="login">
+                </div>
+            </div>
+
             <div class='col'>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
@@ -47,7 +55,6 @@
         </div>
         <div class="row">
             <div class="col">
-                <p>All fields are mandatory.</p>
                 <button type="submit" class="btn btn-primary">Add AME</button>
             </div>
             <div class="col">
