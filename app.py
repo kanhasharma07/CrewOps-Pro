@@ -160,7 +160,7 @@ def addAC():
         acdata = [
             request.form["msn"],
             request.form["type"],
-            request.form["regn"],
+            "VT-" + request.form["regn"],
             request.form["avail"],
             request.form["engine"],
             request.form["engine_hours"],
@@ -189,6 +189,20 @@ def deleteAC():
         Aircraft.deleteAC(int(msn))
         return render_template('deleteACSuccess.html', msn=msn)
     
+@app.route('/modifyAC', methods=['GET','POST'])
+def modifyAC():
+    if request.method=='GET':
+        return render_template('modifyAC.html')
+    else:
+        newData = [request.form['msn'],
+                   request.form['type'],
+                   "VT-"+request.form['regn'],
+                   request.form['avail'],
+                   request.form['engine'],
+                   request.form['engine_hours']]
+        print(newData)
+        Aircraft.modifyAC(newData, int(request.form['msn']))
+        return render_template('modifyACSuccess.html')
 # @app.route('/test')
 # def test():
 #     return render_template('deleteCrew.html')
