@@ -58,11 +58,11 @@ class AircraftModel(BaseModel):
     # Registration Validation    
     @field_validator('regn')
     @classmethod
-    def is_regn_valid(cls, value):
+    def is_regn_valid(cls, value: str):
         # Not Empty
         if not value:
             raise ValueError("Registration cannot be empty.")
-        return value
+        return value.upper()
     
     # Availability Validation
     @field_validator("availability")

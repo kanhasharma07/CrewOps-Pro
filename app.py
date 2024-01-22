@@ -1,4 +1,5 @@
 from crypt import methods
+from aircraft import Aircraft
 from flight_crew import FlightCrew
 from ame_crew import AMECrew
 from flask import Flask, url_for, redirect, render_template, request
@@ -149,6 +150,24 @@ def modifyAME():
         ]
         AMECrew.modifyCrew(oldData, int(request.form["sap"]))
         return render_template("modifyAMESuccess.html")
+
+
+# Aircraft Management
+@app.route("/addac", methods=["POST", "GET"])
+def addAC():
+    if request.method == "GET":
+        return render_template("addAC.html")
+    else:
+        acdata = [
+            request.form['msn'],
+            request.form['type'],
+            request.form['regn'],
+            request.form['avail'],
+            request.form['engine'],
+            request.form['engine_hours']
+        ]
+        Aircraft.addAircraft(acdata)
+        return render_template("addACSuccess.html")
 
 
 # @app.route('/test')
