@@ -1,6 +1,3 @@
-from datetime import date
-import json
-from types import NoneType
 from backend.connection import db, connection
 from models.flight_crew_model import FlightCrewModel
 
