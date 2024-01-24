@@ -6,7 +6,7 @@
         <h1 class="display-5 fw-bold">Flight Successfully Added</h1>
         <p class="col-md-8 fs-4">You may add more flights or view the flight database using the buttons below.</p>
         <a class="btn btn-primary" href="{{ url_for('addFlight') }}" role="button">Add Another Flight</a>
-        <a class="btn btn-primary" href="#" role="button">View Flight Database</a>
+        <a class="btn btn-primary" href="{{ url_for('viewFlights') }}" role="button">View Flight Database</a>
     </div>
 </div>
 {% endblock %}
