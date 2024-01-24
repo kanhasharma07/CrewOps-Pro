@@ -200,7 +200,7 @@ def modifyAC():
         newData = [
             request.form["msn"],
             request.form["type"],
-            "VT-" + request.form["regn"],
+            request.form["regn"],
             request.form["avail"],
             request.form["engine"],
             request.form["engine_hours"],
