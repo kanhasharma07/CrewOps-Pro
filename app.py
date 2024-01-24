@@ -1,6 +1,7 @@
 from aircraft import Aircraft
 from flight_crew import FlightCrew
 from ame_crew import AMECrew
+from flights import Flight
 from flask import Flask, url_for, redirect, render_template, request
 
 app = Flask(__name__)
@@ -203,6 +204,29 @@ def modifyAC():
         print(newData)
         Aircraft.modifyAircraft(newData, int(request.form['msn']))
         return render_template('modifyACSuccess.html')
+
+    
+# Flights Management
+@app.route('/addFlight', methods=['GET','POST'])
+def addFlight():
+    if request.method=='GET':
+        return render_template('addFlight.html')
+    else:
+        flightData = [
+            request.form['flight_no'],
+            request.form['dep'],
+            request.form['arr'],
+            [int(request.form['etd'][0:2]), int(request.form['etd'][2:4])],
+            [int(request.form['eta'][0:2]), int(request.form['eta'][2:4])],
+            request.form['actype'],
+            [int(request.form['duration'][0:2]), int(request.form['duration'][2:4])],
+        ]
+        Flight.addFlight(flightData)
+        return render_template('addFlightSuccess.html')
+
+    
+
+    
 # @app.route('/test')
 # def test():
 #     return render_template('deleteCrew.html')

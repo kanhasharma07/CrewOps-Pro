@@ -5,12 +5,12 @@ from pydantic import BaseModel, field_validator
 class FlightModel(BaseModel):
     
     # Data Fields
-    flight_no: str
+    flight_no: int
     dep: str
     arr: str
     actype: str
     etd: time #Estimated Time of Departure
-    eta: time
+    eta: time #Estimated Time of Arrival
     duration: time
     
     # Validations
@@ -19,9 +19,9 @@ class FlightModel(BaseModel):
     @classmethod
     def is_flightno_valid(cls, value):
         # Length 5 or 6 only
-        if not (len(value) == 4 or len(value) == 5):
-            raise ValueError('Length of Flight Number must either 4 or 5')
-        return value.upper()
+        if not (len(str(value)) == 3 or len(str(value)) == 4):
+            raise ValueError('Length of Flight Number must either 4 or 3')
+        return value
         
     # DEP Validations
     @field_validator('dep')

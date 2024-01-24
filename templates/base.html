@@ -45,6 +45,7 @@
                             <li><a class="dropdown-item" href="{{url_for('deleteAME')}}">Delete AME</a></li>
                         </ul>
                     </li>
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {% block navbarac %}{% endblock %}" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -52,6 +53,19 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{url_for('addAC')}}">Add New Aircaft</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('viewAC')}}">View Fleet</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('modifyAC')}}">Update Aircraft Details</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('deleteAC')}}">Delete Aircraft</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% block navbarflt %}{% endblock %}" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Aircaft Fleet
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{url_for('addFlight')}}">Add New Aircaft</a></li>
                             <li><a class="dropdown-item" href="{{url_for('viewAC')}}">View Fleet</a></li>
                             <li><a class="dropdown-item" href="{{url_for('modifyAC')}}">Update Aircraft Details</a></li>
                             <li><a class="dropdown-item" href="{{url_for('deleteAC')}}">Delete Aircraft</a></li>
