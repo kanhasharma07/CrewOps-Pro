@@ -32,7 +32,6 @@ def addCrew():
             True,
             request.form["pw"],
         ]
-
         FlightCrew.addCrew(
             receivedFlightCrewData[0],
             receivedFlightCrewData[1],
@@ -169,7 +168,8 @@ def addAC():
         Aircraft.addAircraft(acdata)
         return render_template("addACSuccess.html")
 
-@app.route('/viewAC')
+
+@app.route("/viewAC")
 def viewAC():
     actype = {
         "A320": "Airbus A320",
@@ -181,65 +181,68 @@ def viewAC():
     acData = Aircraft.viewAircraft()
     return render_template("viewAC.html", acData=acData, actype=actype)
 
-@app.route('/deleteAC', methods=["POST", "GET"])
-def deleteAC():
-    if request.method=='GET':
-        return render_template('deleteAC.html')
-    else:
-        msn = request.form['msn']
-        Aircraft.deleteAircraft(int(msn))
-        return render_template('deleteACSuccess.html', msn=msn)
-    
-@app.route('/modifyAC', methods=['GET','POST'])
-def modifyAC():
-    if request.method=='GET':
-        return render_template('modifyAC.html')
-    else:
-        newData = [request.form['msn'],
-                   request.form['type'],
-                   "VT-"+request.form['regn'],
-                   request.form['avail'],
-                   request.form['engine'],
-                   request.form['engine_hours']]
-        print(newData)
-        Aircraft.modifyAircraft(newData, int(request.form['msn']))
-        return render_template('modifyACSuccess.html')
 
-    
+@app.route("/deleteAC", methods=["POST", "GET"])
+def deleteAC():
+    if request.method == "GET":
+        return render_template("deleteAC.html")
+    else:
+        msn = request.form["msn"]
+        Aircraft.deleteAircraft(int(msn))
+        return render_template("deleteACSuccess.html", msn=msn)
+
+
+@app.route("/modifyAC", methods=["GET", "POST"])
+def modifyAC():
+    if request.method == "GET":
+        return render_template("modifyAC.html")
+    else:
+        newData = [
+            request.form["msn"],
+            request.form["type"],
+            "VT-" + request.form["regn"],
+            request.form["avail"],
+            request.form["engine"],
+            request.form["engine_hours"],
+        ]
+        print(newData)
+        Aircraft.modifyAircraft(newData, int(request.form["msn"]))
+        return render_template("modifyACSuccess.html")
+
+
 # Flights Management
-@app.route('/addFlight', methods=['GET','POST'])
+@app.route("/addFlight", methods=["GET", "POST"])
 def addFlight():
-    if request.method=='GET':
-        return render_template('addFlight.html')
+    if request.method == "GET":
+        return render_template("addFlight.html")
     else:
         flightData = [
-            request.form['flight_no'],
-            request.form['dep'],
-            request.form['arr'],
-            [int(request.form['etd'][0:2]), int(request.form['etd'][2:4])],
-            [int(request.form['eta'][0:2]), int(request.form['eta'][2:4])],
-            request.form['actype'],
-            [int(request.form['duration'][0:2]), int(request.form['duration'][2:4])],
+            request.form["flight_no"],
+            request.form["dep"],
+            request.form["arr"],
+            [int(request.form["etd"][0:2]), int(request.form["etd"][2:4])],
+            [int(request.form["eta"][0:2]), int(request.form["eta"][2:4])],
+            request.form["actype"],
+            [int(request.form["duration"][0:2]), int(request.form["duration"][2:4])],
         ]
         Flight.addFlight(flightData)
-        return render_template('addFlightSuccess.html')
+        return render_template("addFlightSuccess.html")
 
 
-@app.route('/viewFlights', methods=['GET','POST'])
+@app.route("/viewFlights", methods=["GET", "POST"])
 def viewFlights():
     flts = Flight.viewFlights()
-    return render_template('viewFlights.html', flts=flts)
+    return render_template("viewFlights.html", flts=flts)
 
-@app.route('/deleteFlight', methods=['GET','POST'])
+
+@app.route("/deleteFlight", methods=["GET", "POST"])
 def deleteFlight():
-    if request.method=="GET":
-        return render_template('deleteFlight.html')
+    if request.method == "GET":
+        return render_template("deleteFlight.html")
     else:
-        flt_no = int(request.form['flight_no'])
+        flt_no = int(request.form["flight_no"])
         Flight.deleteFlight(flt_no)
-        return render_template('deleteFlightSuccess.html', flt_no=flt_no)
-        
-
+        return render_template("deleteFlightSuccess.html", flt_no=flt_no)
 
 
 # @app.route('/test')
