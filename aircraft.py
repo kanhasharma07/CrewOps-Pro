@@ -12,24 +12,24 @@ class Aircraft:
         connection.commit()
         
     @staticmethod
-    def viewAC():
+    def viewAircraft():
         query = f"SELECT * FROM {Aircraft.tablename}"
         db.execute(query)
         return db.fetchall()
     
     @staticmethod
-    def deleteAC(msn: int):
+    def deleteAircraft(msn: int):
         query = f'DELETE FROM {Aircraft.tablename} WHERE msn={msn}'
         db.execute(query)
         connection.commit()
         
     @staticmethod
-    def modifyAC(newData:list, msn: int):
+    def modifyAircraft(newData:list, msn: int):
         query = F'SELECT * FROM {Aircraft.tablename} WHERE msn={msn}'
         db.execute(query)
         oldData = db.fetchone()
         print(oldData)
         newData = [val2 if val2!='' else val1 for val1, val2 in zip(oldData, newData)] # type: ignore
         print('NewDataModified= ', newData)
-        Aircraft.deleteAC(msn)
+        Aircraft.deleteAircraft(msn)
         Aircraft.addAircraft(newData)

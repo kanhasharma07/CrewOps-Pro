@@ -177,7 +177,7 @@ def viewAC():
         "B787": "Boeing 787",
         "A350": "Airbus A350",
     }
-    acData = Aircraft.viewAC()
+    acData = Aircraft.viewAircraft()
     return render_template("viewAC.html", acData=acData, actype=actype)
 
 @app.route('/deleteAC', methods=["POST", "GET"])
@@ -186,7 +186,7 @@ def deleteAC():
         return render_template('deleteAC.html')
     else:
         msn = request.form['msn']
-        Aircraft.deleteAC(int(msn))
+        Aircraft.deleteAircraft(int(msn))
         return render_template('deleteACSuccess.html', msn=msn)
     
 @app.route('/modifyAC', methods=['GET','POST'])
@@ -201,7 +201,7 @@ def modifyAC():
                    request.form['engine'],
                    request.form['engine_hours']]
         print(newData)
-        Aircraft.modifyAC(newData, int(request.form['msn']))
+        Aircraft.modifyAircraft(newData, int(request.form['msn']))
         return render_template('modifyACSuccess.html')
 # @app.route('/test')
 # def test():
