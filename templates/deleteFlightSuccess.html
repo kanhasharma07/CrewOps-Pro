@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{%block navbarflt%}active{%endblock%}
+
+{%block content%}
+<div class="p-5 mb-4 bg-success-subtle text-emphasis-success rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Flight Deleted Successfuly</h1>
+        <p class="col-md-8 fs-4">The data corresponding to Flight Number: {{flt_no}} has been irreversibily deleted. You may add the Flight again if required.</p>
+        <a class="btn btn-primary" href="{{url_for('home_page')}}" role="button">Return to Home</a>
+        <a class="btn btn-primary" href="{{url_for('viewFlights')}}" role="button">View Flights</a>
+    </div>
+</div>
+{%endblock%}

@@ -27,9 +27,8 @@ class Flight():
         return db.fetchall()
     
     @staticmethod
-    def deleteFlight():
-        pass
+    def deleteFlight(flight_no: int):
+        query = f"DELETE FROM {Flight.tablename} WHERE flight_no={flight_no}"
+        db.execute(query)
+        connection.commit()
     
-    @staticmethod
-    def modifyFlight():
-        pass

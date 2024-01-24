@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block navbarflt %}active{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Flight Details</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Flight #</th>
+                <th scope="col">Departure Airport</th>
+                <th scope="col">Arrival Airport</th>
+                <th scope="col">A/C Type</th>
+                <th scope="col">ETD</th>
+                <th scope="col">ETA</th>
+                <th scope="col">Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in flts %}
+            <tr>
+                <th scope="row">{{ flight[0] }}</th>
+                <td>{{ flight[1] }}</td>
+                <td>{{ flight[2] }}</td>
+                <td>{{ flight[3] }}</td>
+                <td>{{ flight[4] }}</td>
+                <td>{{ flight[5] }}</td>
+                <td>{{ flight[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

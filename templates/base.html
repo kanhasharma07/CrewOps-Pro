@@ -62,13 +62,12 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {% block navbarflt %}{% endblock %}" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Aircaft Fleet
+                            Flights
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{url_for('addFlight')}}">Add New Aircaft</a></li>
-                            <li><a class="dropdown-item" href="{{url_for('viewAC')}}">View Fleet</a></li>
-                            <li><a class="dropdown-item" href="{{url_for('modifyAC')}}">Update Aircraft Details</a></li>
-                            <li><a class="dropdown-item" href="{{url_for('deleteAC')}}">Delete Aircraft</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('addFlight')}}">Add New Flight</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('viewFlights')}}">View Flights</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('deleteFlight')}}">Delete Flight</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

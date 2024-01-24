@@ -224,12 +224,27 @@ def addFlight():
         Flight.addFlight(flightData)
         return render_template('addFlightSuccess.html')
 
-    
 
-    
+@app.route('/viewFlights', methods=['GET','POST'])
+def viewFlights():
+    flts = Flight.viewFlights()
+    return render_template('viewFlights.html', flts=flts)
+
+@app.route('/deleteFlight', methods=['GET','POST'])
+def deleteFlight():
+    if request.method=="GET":
+        return render_template('deleteFlight.html')
+    else:
+        flt_no = int(request.form['flight_no'])
+        Flight.deleteFlight(flt_no)
+        return render_template('deleteFlightSuccess.html', flt_no=flt_no)
+        
+
+
+
 # @app.route('/test')
 # def test():
 #     return render_template('deleteCrew.html')
 
 if __name__ == "__main__":
-    app.run(port=8000, debug=True)
+    app.run(debug=True, port=8000)

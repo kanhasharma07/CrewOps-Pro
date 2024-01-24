@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block navbarflt %}active{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="{{ url_for('deleteFlight') }}" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="flightNoInput" class="form-label">Flight Number</label>
+                    <input type="number" class="form-control" id="flightNoInput" name="flight_no">
+                    <div id="flightNo" class="form-text">Flight data corresponding to this Flight Number will be
+                        irrevocably deleted from the database.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-danger">Delete Flight</button>
+    </form>
+</div>
+{% endblock %}
