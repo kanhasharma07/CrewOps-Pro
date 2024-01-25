@@ -137,7 +137,7 @@ class FlightCrewModel(BaseModel):
             raise ValueError("Designation should only contain alphabetic characters and spaces.")
         if len(value) > 255:
             raise ValueError("Designation length should not exceed 255 characters.")
-        return value.title()
+        return value.upper()
     
     # Mobile Number Validation
     @field_validator("mob")

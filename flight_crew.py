@@ -85,6 +85,42 @@ class FlightCrew:
         db.execute(query)
         connection.commit()
 
+    # Returns a list of FlightCrewModel instances from an input of db.fetchall()
+    @staticmethod
+    def objectify(crew: list) -> list[FlightCrewModel]:
+        return [
+            FlightCrewModel.model_validate(
+                dict(zip(FlightCrewModel.__annotations__, crewman))
+            )
+            for crewman in crew
+        ]
+
+    # Returns a list[FlightCrewModel] of Available P1
+    @staticmethod
+    def availableP1() -> list:
+        query = f"SELECT * FROM flight_crew WHERE designation IN ('Commander','Sr Commander','LTC', 'TRI','DE')"
+        db.execute(query)
+        crew = db.fetchall()
+        return [
+            FlightCrewModel.model_validate(
+                dict(zip(FlightCrewModel.__annotations__, crewman))
+            )
+            for crewman in crew
+        ]
+
+    # Returns a list[FlightCrewModel] of Available P2
+    @staticmethod
+    def availableP2() -> list:
+        query = f"SELECT * FROM flight_crew WHERE designation IN ('JFO','FO','SFO')"
+        db.execute(query)
+        crew = db.fetchall()
+        return [
+            FlightCrewModel.model_validate(
+                dict(zip(FlightCrewModel.__annotations__, crewman))
+            )
+            for crewman in crew
+        ]
+
 
 # if __name__ == "__main__":
 # FlightCrew.modifyCrew(80050318)
