@@ -98,7 +98,7 @@ class FlightCrew:
     # Returns a list[FlightCrewModel] of Available P1
     @staticmethod
     def availableP1() -> list:
-        query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('Commander','Sr Commander','LTC', 'TRI','DE')"
+        query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('Commander','Sr Commander','LTC', 'TRI','DE') AND availablity=1"
         db.execute(query)
         crew = db.fetchall()
         return [
@@ -111,7 +111,7 @@ class FlightCrew:
     # Returns a list[FlightCrewModel] of Available P2
     @staticmethod
     def availableP2() -> list:
-        query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('JFO','FO','SFO')"
+        query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('JFO','FO','SFO') AND availablity=1"
         db.execute(query)
         crew = db.fetchall()
         return [

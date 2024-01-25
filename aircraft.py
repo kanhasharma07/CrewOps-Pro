@@ -33,3 +33,18 @@ class Aircraft:
         print('NewDataModified= ', newData)
         Aircraft.deleteAircraft(msn)
         Aircraft.addAircraft(newData)
+    
+    # Returns a list[AircraftModel] when provided input of a db.fetchall() list
+    @staticmethod
+    def objectify(fleetList: list):
+        return [AircraftModel.model_validate(dict(zip(AircraftModel.__annotations__, aircraft))) for aircraft in fleetList]
+    
+    # Returns list[AircraftModel] of available aircraft.
+    @staticmethod    
+    def avaiableFleet(actype: str) -> list[AircraftModel]:
+        query = f"SELECT * FROM aircraft_fleet WHERE availability=1 AND type='{actype}'"
+        db.execute(query)
+        availFleet = db.fetchall()
+        return [AircraftModel.model_validate(dict(zip(AircraftModel.__annotations__, aircraft))) for aircraft in availFleet]
+    
+    
