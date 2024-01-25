@@ -31,7 +31,7 @@ class RosterModel(BaseModel):
     """
     # Data Fields
     flight_date: date
-    flight_no: str
+    flight_no: int
     msn: int
     p1_id: int
     p2_id: int

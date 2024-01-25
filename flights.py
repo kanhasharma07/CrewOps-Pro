@@ -1,3 +1,4 @@
+from models.aircraft_model import AircraftModel
 from models.flights_model import FlightModel
 from backend.connection import db, connection
 from datetime import time
@@ -32,3 +33,10 @@ class Flight():
         db.execute(query)
         connection.commit()
     
+    # Returns list[AircraftModel] from DB
+    @staticmethod
+    def objectify():
+        query = f"SELECT * FROM {Flight.tablename}"
+        db.execute(query)
+        flights = db.fetchall()
+        return [AircraftModel.model_validate(dict(zip(AircraftModel.__annotations__, flt))) for flt in flights]
