@@ -220,10 +220,10 @@ def addFlight():
             request.form["flight_no"],
             request.form["dep"],
             request.form["arr"],
-            [int(request.form["etd"][0:2]), int(request.form["etd"][2:4])],
-            [int(request.form["eta"][0:2]), int(request.form["eta"][2:4])],
+            [request.form["etd"][0:2], request.form["etd"][2:4]],
+            [request.form["eta"][0:2], request.form["eta"][2:4]],
             request.form["actype"],
-            [int(request.form["duration"][0:2]), int(request.form["duration"][2:4])],
+            [request.form["duration"][0:2], request.form["duration"][2:4]],
         ]
         Flight.addFlight(flightData)
         return render_template("addFlightSuccess.html")

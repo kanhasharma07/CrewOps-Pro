@@ -1,3 +1,4 @@
+import enum
 from backend.connection import db, connection
 from models.flight_crew_model import FlightCrewModel
 
@@ -85,6 +86,18 @@ class FlightCrew:
         db.execute(query)
         connection.commit()
 
+    @staticmethod
+    def isAvailabie(sap: int):
+        query = f"UPDATE {FlightCrew.tablename} SET availability=True WHERE staffid={sap}"
+        db.execute(query)
+        connection.commit()
+    
+    @staticmethod
+    def isCrewed(sap: int):
+        query = f"UPDATE {FlightCrew.tablename} SET availability=False WHERE staffid={sap}"
+        db.execute(query)
+        connection.commit()
+    
     # Returns a list of FlightCrewModel instances from an input of db.fetchall()
     @staticmethod
     def objectify(crew: list) -> list[FlightCrewModel]:
@@ -98,7 +111,7 @@ class FlightCrew:
     # Returns a list[FlightCrewModel] of Available P1
     @staticmethod
     def availableP1() -> list:
-        query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('Commander','Sr Commander','LTC', 'TRI','DE') AND availablity=1"
+        query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('Commander','Sr Commander','LTC', 'TRI','DE') AND availability=1"
         db.execute(query)
         crew = db.fetchall()
         return [
@@ -111,7 +124,7 @@ class FlightCrew:
     # Returns a list[FlightCrewModel] of Available P2
     @staticmethod
     def availableP2() -> list:
-        query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('JFO','FO','SFO') AND availablity=1"
+        query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('JFO','FO','SFO') AND availability=1"
         db.execute(query)
         crew = db.fetchall()
         return [
@@ -121,6 +134,17 @@ class FlightCrew:
             for crewman in crew
         ]
 
+    @staticmethod
+    def find_suitable_P1(availP1: list, dutyTimeP1: dict):
+        while dutyTimeP1[availP1[0].sap]>=8:
+            availP1.pop(0)
+        return availP1[0]
+        
+    @staticmethod
+    def find_suitable_P2(availP2: list, dutyTimeP2: dict):
+        while dutyTimeP2[availP2[0].sap]>=8:
+            availP2.pop(0)
+        return availP2[0]
 
 # if __name__ == "__main__":
 # FlightCrew.modifyCrew(80050318)

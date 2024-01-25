@@ -9,9 +9,9 @@ class FlightModel(BaseModel):
     dep: str
     arr: str
     actype: str
-    etd: time #Estimated Time of Departure
-    eta: time #Estimated Time of Arrival
-    duration: time
+    etd: str #Estimated Time of Departure
+    eta: str #Estimated Time of Arrival
+    duration: str
     
     # Validations
     # Flight_no Validation

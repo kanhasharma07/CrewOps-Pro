@@ -11,10 +11,10 @@ class Flight():
         flt = FlightModel(flight_no=flightData[0],
                           dep=flightData[1],
                           arr=flightData[2],
-                          etd=time(hour=flightData[3][0], minute=flightData[3][1]),
-                          eta=time(hour=flightData[4][0], minute=flightData[4][1]),
+                          etd= str(flightData[3][0])+':'+ str(flightData[3][1]),
+                          eta= str(flightData[4][0])+':'+ str(flightData[4][1]),
                           actype=flightData[5],
-                          duration=time(hour=flightData[6][0], minute=flightData[6][1]),
+                          duration=str(flightData[6][0]) + ':' + str(flightData[6][1]),
                           )
         query = f"INSERT INTO {Flight.tablename} (flight_no, departure, arrival, aircraft_type, dep_time, arr_time, duration) VALUES (%s,%s,%s,%s,%s,%s,%s)"
         data = tuple(flt.model_dump().values())
@@ -35,8 +35,8 @@ class Flight():
     
     # Returns list[AircraftModel] from DB
     @staticmethod
-    def objectify():
+    def allFlights():
         query = f"SELECT * FROM {Flight.tablename}"
         db.execute(query)
         flights = db.fetchall()
-        return [AircraftModel.model_validate(dict(zip(AircraftModel.__annotations__, flt))) for flt in flights]
+        return [FlightModel.model_validate(dict(zip(FlightModel.__annotations__, flt))) for flt in flights]

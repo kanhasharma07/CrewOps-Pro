@@ -1,3 +1,4 @@
+from datetime import date
 from flight_crew import FlightCrew
 from aircraft import Aircraft
 from flights import Flight
@@ -29,3 +30,39 @@ class Roster:
     def updatePairing(oldPairing: list, newPairing: list):
         Roster.deletePairing(oldPairing[1], oldPairing[4], oldPairing[5])
         Roster.addPairing(newPairing)
+        
+    @staticmethod
+    def new_monthly_roster(month: int):
+        pairs = []
+        
+        availP1 = FlightCrew.availableP1()
+        availP2 = FlightCrew.availableP2()
+        flights = Flight.allFlights()
+        
+        dutyTimeP1 = {P1.sap : 0 for P1 in availP1} 
+        dutyTimeP2 = {P2.sap : 0 for P2 in availP2}
+        
+        for day in range(1, 32):
+            for flight in flights:
+                if not availP1:
+                    availP1 = FlightCrew.availableP1()
+                if not availP2:
+                    availP2 = FlightCrew.availableP2()
+
+                availFleet = Aircraft.avaiableFleet(flight.actype)
+                
+                flt_date = date(year=2024, month=month, day=day)
+                currentFlightNo = flight.flight_no
+                aircraft = availFleet.pop(0)
+                p1 = FlightCrew.find_suitable_P1(availP1, dutyTimeP1)
+                p2 = FlightCrew.find_suitable_P2(availP2, dutyTimeP2)
+                
+                
+                availP1.pop(0)
+                availP2.pop(0)
+                
+                pairs.append((flt_date, p1, p2, currentFlightNo, aircraft))
+        return pairs   
+                
+                
+            
