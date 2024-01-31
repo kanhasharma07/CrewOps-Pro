@@ -63,6 +63,3 @@ class Roster:
                 
                 pairs.append((flt_date, p1, p2, currentFlightNo, aircraft))
         return pairs   
-                
-                
-            
