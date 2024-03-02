@@ -4,12 +4,14 @@
 
 {%block content%}
 <div class="container">
+    <h2>Delete Crew</h2>
     <form action="{{url_for('deleteCrew')}}" method="post">
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">SAP (Staff ID)</label>
             <input type="number" class="form-control" id="sapform" name="sap">
             <div id="sap" class="form-text">Flight Crew data corresponding to this Staff ID will be irrevocably deleted
                 from database</div>
+            <p>Note: This action is permanent.</p>
         </div>
         <button type="Delete Crew" class="btn btn-primary">Delete Crew</button>
     </form>
