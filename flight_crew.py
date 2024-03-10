@@ -136,14 +136,14 @@ class FlightCrew:
 
     @staticmethod
     # Returns the list of next available P1 whose Duty Time has not exceeded 8 hrs
-    def find_suitable_P1(availP1: list, dutyTimeP1: dict):
+    def find_suitable_P1(availP1: list[FlightCrewModel], dutyTimeP1: dict) -> FlightCrewModel:
         while dutyTimeP1[availP1[0].sap]>=8:
             availP1.pop(0)
         return availP1[0]
         
     @staticmethod
     # Returns the list of next available P2 whose Duty Time has not exceeded 8 hrs
-    def find_suitable_P2(availP2: list, dutyTimeP2: dict):
+    def find_suitable_P2(availP2: list[FlightCrewModel], dutyTimeP2: dict) -> FlightCrewModel:
         while dutyTimeP2[availP2[0].sap]>=8:
             availP2.pop(0)
         return availP2[0]

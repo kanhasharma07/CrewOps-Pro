@@ -34,7 +34,7 @@ class Roster:
         Roster.addPairing(newPairing)
 
     @staticmethod
-    def new_monthly_roster(month: int):
+    def new_monthly_roster(month: int) -> list:
         days_in_months = {
             1: 31,
             2: 28,

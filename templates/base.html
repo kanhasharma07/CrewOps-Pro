@@ -71,9 +71,15 @@
                             <li><a class="dropdown-item" href="{{url_for('deleteFlight')}}">Delete Flight</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% block navbarroster %}{% endblock %}" aria-current="page"
-                            href="#"><b>Montly Roster</b></a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% block navbarroster %}{% endblock %}" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <b>Monthly Roster</b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{url_for('addFlight')}}">Create New Monthly Roster</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('viewFlights')}}">View Your Roster</a></li>
+                        </ul>
                     </li>
                     <!-- <li class="nav-item">
             <a class="nav-link" href="#">Features</a>
