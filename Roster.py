@@ -8,7 +8,7 @@ from models.roster_model import RosterModel
 
 class Roster:
     tablename = "monthly_roster"
-
+    
     @staticmethod
     def addPairing(pairing: list):
         pair = RosterModel(
@@ -84,7 +84,17 @@ class Roster:
                 availP1.pop(0)
                 availP2.pop(0)
 
-                pairs.append((flt_date, p1, p2, currentFlightNo, aircraft))
+                pairs.append((flt_date, currentFlightNo, aircraft, p1, p2))
         return pairs
+    
+    @staticmethod
+    def addRoster(month: int):
+        db.execute(F"DELETE FROM {Roster.tablename}")
+        crewPairObj = Roster.new_monthly_roster(month=month)
+        crewPair = [(crew[0], crew[1], crew[2].msn  ,crew[3].sap, crew[4].sap) for crew in crewPairObj]
+        query = f"INSERT INTO {Roster.tablename} (date, flight_no, aircraft_msn, p1_id, p2_id) VALUES (%s,%s,%s,%s,%s)"
+        db.executemany(query, crewPair)
+        connection.commit()
+
 
 # if __name__=='__main__':

@@ -13,7 +13,7 @@ def home_page():
     return render_template("home.html")
 
 
-# Flight Crew Management Routes
+# Flight Crew Management
 @app.route("/addCrew", methods=["GET", "POST"])
 def addCrew():
     if request.method == "GET":
@@ -244,6 +244,20 @@ def deleteFlight():
         Flight.deleteFlight(flt_no)
         return render_template("deleteFlightSuccess.html", flt_no=flt_no)
 
+# MONTHLY ROSTER MANAGEMENT
+@app.route("/createRoster.html", methods=["GET", "POST"])
+def createRoster():
+    if request.method=="GET":
+        return render_template("createRoster.html")
+    else:
+        return render_template("viewRoster.html")
+
+@app.route("/viewRoster.html", methods=["GET", "POST"])
+def viewRoster():
+    if request.method=="GET":
+        return render_template("createRoster.html")
+    else:
+        return render_template("viewRoster.html")
 
 # @app.route('/test')
 # def test():
