@@ -95,6 +95,13 @@ class Roster:
         query = f"INSERT INTO {Roster.tablename} (date, flight_no, aircraft_msn, p1_id, p2_id) VALUES (%s,%s,%s,%s,%s)"
         db.executemany(query, crewPair)
         connection.commit()
+        
+    @staticmethod
+    def viewYourRoster(sap: int):
+        query = f"SELECT * FROM {Roster.tablename} WHERE p1_id={sap} OR p2_id={sap}"
+        db.execute(query)
+        myroster = db.fetchall()
+        print(myroster)
 
 
 # if __name__=='__main__':
