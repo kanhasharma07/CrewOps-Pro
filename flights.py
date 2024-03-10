@@ -35,7 +35,7 @@ class Flight:
         db.execute(query)
         connection.commit()
 
-    # Returns list[AircraftModel] from DB
+    # Returns list[FlightModel] from DB
     @staticmethod
     def allFlights():
         query = f"SELECT * FROM {Flight.tablename}"

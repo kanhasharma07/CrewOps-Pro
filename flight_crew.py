@@ -110,7 +110,7 @@ class FlightCrew:
 
     # Returns a list[FlightCrewModel] of Available P1
     @staticmethod
-    def availableP1() -> list:
+    def availableP1() -> list[FlightCrewModel]:
         query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('Commander','Sr Commander','LTC', 'TRI','DE') AND availability=1"
         db.execute(query)
         crew = db.fetchall()
@@ -123,7 +123,7 @@ class FlightCrew:
 
     # Returns a list[FlightCrewModel] of Available P2
     @staticmethod
-    def availableP2() -> list:
+    def availableP2() -> list[FlightCrewModel]:
         query = f"SELECT * FROM {FlightCrew.tablename} WHERE designation IN ('JFO','FO','SFO') AND availability=1"
         db.execute(query)
         crew = db.fetchall()
@@ -135,12 +135,14 @@ class FlightCrew:
         ]
 
     @staticmethod
+    # Returns the list of next available P1 whose Duty Time has not exceeded 8 hrs
     def find_suitable_P1(availP1: list, dutyTimeP1: dict):
         while dutyTimeP1[availP1[0].sap]>=8:
             availP1.pop(0)
         return availP1[0]
         
     @staticmethod
+    # Returns the list of next available P2 whose Duty Time has not exceeded 8 hrs
     def find_suitable_P2(availP2: list, dutyTimeP2: dict):
         while dutyTimeP2[availP2[0].sap]>=8:
             availP2.pop(0)
