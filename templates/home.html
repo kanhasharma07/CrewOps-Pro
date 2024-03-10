@@ -20,7 +20,7 @@
         </a>
     </header>
 
-    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+    <div class="p-5 mb-4 text-bg-dark rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">About CrewOps Pro</h1>
             <p class="col-md-8 fs-4">The premium aviation management solution, offering a comprehensive platform for
@@ -35,18 +35,18 @@
             <div class="h-100 p-5 text-bg-dark rounded-3">
                 <h2>Personal Roster</h2>
                 <p>Access your personal monthly roster here</p>
-                <a href=""><button class="btn btn-outline-light" type="button">Example button</button></a>
+                <a class="btn btn-outline-light" href="{{url_for('viewRoster')}}" role="button">View Your Current Roster</a>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+            <div class="h-100 p-5 text-bg-dark border rounded-3">
                 <h2>Flight Crew Management</h2>
                 <p>With the following suite of tools, a comprehensive Flight Crew list can be maintained with ease.</p>
-                <a href="{{url_for('addCrew')}}"><button class="btn btn-outline-secondary" type="button">Add Flight Crew</button></a><br><br>
-                <a href="{{url_for('viewCrew')}}"><button class="btn btn-outline-secondary" type="button">View Crew List</button></a><br><br>
-                <a href="{{url_for('modifyCrew')}}"><button class="btn btn-outline-secondary" type="button">Modify Crew Details</button></a><br><br>
-                <a href="{{url_for('deleteCrew')}}"><button class="btn btn-outline-secondary" type="button">Delete Flight Crew</button></a><br><br>
-                <a href="{{url_for('updateAvail')}}"><button class="btn btn-outline-secondary" type="button">Update Crew Availability</button></a><br><br>
+                <a href="{{url_for('addCrew')}}"><button class="btn btn-outline-light" type="button">Add Flight Crew</button></a><br><br>
+                <a href="{{url_for('viewCrew')}}"><button class="btn btn-outline-light" type="button">View Crew List</button></a><br><br>
+                <a href="{{url_for('modifyCrew')}}"><button class="btn btn-outline-light" type="button">Modify Crew Details</button></a><br><br>
+                <a href="{{url_for('deleteCrew')}}"><button class="btn btn-outline-light" type="button">Delete Flight Crew</button></a><br><br>
+                <a href="{{url_for('updateAvail')}}"><button class="btn btn-outline-light" type="button">Update Crew Availability</button></a><br><br>
             </div>
         </div>
     </div>

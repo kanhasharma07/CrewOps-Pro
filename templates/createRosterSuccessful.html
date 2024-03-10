@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{%block navbarroster%}active{%endblock%}
+{%block content%}
+<div class="p-5 mb-4 bg-success-subtle rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">New Roster Generated!</h1>
+        <p class="col-md-8 fs-4">You may generate a new roster to override the existing scheduling.</p>
+        <a class="btn btn-primary" href="{{url_for('viewRoster')}}" role="button">View Your Current Roster</a>
+    </div>
+</div>
+{%endblock%}

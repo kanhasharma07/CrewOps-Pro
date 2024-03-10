@@ -4,6 +4,8 @@ from ame_crew import AMECrew
 from flights import Flight
 from flask import Flask, url_for, redirect, render_template, request
 
+from roster import Roster
+
 app = Flask(__name__)
 
 
@@ -250,14 +252,18 @@ def createRoster():
     if request.method=="GET":
         return render_template("createRoster.html")
     else:
-        return render_template("viewRoster.html")
+        month = int(request.form["month"])
+        Roster.addRoster(month=month)
+        return render_template("createRosterSuccessful.html")
 
 @app.route("/viewRoster.html", methods=["GET", "POST"])
 def viewRoster():
     if request.method=="GET":
-        return render_template("createRoster.html")
+        return render_template("rosterSAPInput.html")
     else:
-        return render_template("viewRoster.html")
+        sap = int(request.form['sap'])
+        pairs = Roster.viewYourRoster(sap=sap)
+        return render_template("viewRoster.html", pairs = pairs)
 
 # @app.route('/test')
 # def test():

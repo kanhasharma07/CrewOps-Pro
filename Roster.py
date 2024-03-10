@@ -96,12 +96,29 @@ class Roster:
         db.executemany(query, crewPair)
         connection.commit()
         
+    # Returns list of Roster Data, each flight as a tuple in the list
     @staticmethod
-    def viewYourRoster(sap: int):
-        query = f"SELECT * FROM {Roster.tablename} WHERE p1_id={sap} OR p2_id={sap}"
+    def viewYourRoster(sap: int) -> list:
+        query = f"""SELECT
+                DATE_FORMAT(monthly_roster.date, '%d-%m-%Y'),
+                flights.flight_no,
+                CONCAT("Capt ", fc1.fname, ' ', fc1.lname) AS PIC,
+                CONCAT("Capt ", fc2.fname, ' ', fc2.lname) AS "Co-Pilot",
+                CONCAT(flights.departure, " - ", flights.arrival) AS route,
+                CONCAT(TIME_FORMAT(flights.dep_time, '%H:%i'), " - ", TIME_FORMAT(flights.arr_time, '%H:%i')) AS timing,
+                CONCAT("VT-", aircraft_fleet.regn) AS regn
+            FROM
+                flight_crew AS fc1
+                JOIN monthly_roster ON fc1.staffid = monthly_roster.p1_id
+                JOIN flights ON monthly_roster.flight_no = flights.flight_no
+                JOIN aircraft_fleet ON monthly_roster.aircraft_msn = aircraft_fleet.msn
+                JOIN flight_crew AS fc2 ON monthly_roster.p2_id = fc2.staffid
+            WHERE
+                fc1.staffid = {sap}
+                OR fc2.staffid = {sap};"""
         db.execute(query)
-        myroster = db.fetchall()
-        print(myroster)
+        return db.fetchall()
+        
 
 
 # if __name__=='__main__':

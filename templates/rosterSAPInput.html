@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{%block navbarroster%}active{%endblock%}
+{% block content %}
+<br><br>
+<div class="container">
+    <h2>View Your Personal Roster</h2>
+    <form action="{{url_for('viewRoster')}}" method="post">
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">SAP (Staff ID)</label>
+            <input type="number" class="form-control" id="sapform" name="sap" required>
+        </div>
+        <button type="Delete Crew" class="btn btn-primary">View Roster</button>
+    </form>
+</div>
+
+{% endblock %}
