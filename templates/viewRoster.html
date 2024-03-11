@@ -4,7 +4,7 @@
 <br><br>
 <div class="container">
     {% if pairs %}
-    <h2>Flight Details: {{ pairs[0][2] if pairs[0][2]==pairs[1][2] else pairs[0][3]  }}</h2>
+    <h2>Flight Details: {{ pairs[0][2] if pairs[0][2]==pairs[1][2] else pairs[0][3] }}</h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -32,10 +32,14 @@
         </tbody>
     </table>
 </div>
+
 {% else %}
+
 <h3>The given pilot has not been scheduled for any flight duties this month</h3>
 <br>
 <h6>View Roster for Another Crew</h6>
 <a class="btn btn-primary" href="{{url_for('viewRoster')}}" role="button">View Your Current Roster</a>
+
 {% endif %}
+
 {% endblock %}
