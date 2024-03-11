@@ -2,9 +2,9 @@ from aircraft import Aircraft
 from flight_crew import FlightCrew
 from ame_crew import AMECrew
 from flights import Flight
+from roster import Roster
 from flask import Flask, url_for, redirect, render_template, request
 
-from roster import Roster
 
 app = Flask(__name__)
 
