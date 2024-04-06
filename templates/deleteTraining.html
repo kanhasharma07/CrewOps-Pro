@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block navbartrg %}active{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <form action="{{ url_for('deleteTraining') }}" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="flightNoInput" class="form-label">Training ID</label>
+                    <input type="number" class="form-control" id="flightNoInput" name="trgid">
+                    <div id="flightNo" class="form-text">Training data corresponding to this training ID will be
+                        irrevocably deleted from the database.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-danger">Delete Training</button>
+    </form>
+</div>
+
+{% endblock %}

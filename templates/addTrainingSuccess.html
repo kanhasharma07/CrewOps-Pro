@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block navbartrg %}active{% endblock %}
+{% block content %}
+<div class="p-5 mb-4 bg-success-subtle rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Training Successfully Added</h1>
+        <p class="col-md-8 fs-4">You may add more trainings or view the trainings schedule using the buttons below.</p>
+        <a class="btn btn-primary" href="{{ url_for('addTraining') }}" role="button">Add Another Training</a>
+        <a class="btn btn-primary" href="{{ url_for('viewTrainings') }}" role="button">View Planned Trainings</a>
+    </div>
+</div>
+{% endblock %}

@@ -12,7 +12,7 @@ class TrainingModel(BaseModel):
     trainee_id: int
     training_date: date
     location: str
-    duration: time
+    duration: str
     
     # Validations
     # Trainer ID Validation

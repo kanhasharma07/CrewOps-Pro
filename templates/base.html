@@ -35,6 +35,17 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% block navbartrg %}{% endblock %}" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <b>Crew Training</b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{url_for('addTraining')}}">Add Pilot Training</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('viewTrainings')}}">View Scheduled Trainings</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('deleteTraining')}}">Delete Trainings</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {% block navbarame %}{% endblock %}" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <b>AME</b>

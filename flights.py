@@ -1,7 +1,5 @@
-from models.aircraft_model import AircraftModel
 from models.flights_model import FlightModel
 from backend.connection import db, connection
-from datetime import time
 
 
 class Flight:

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block navbartrg %}active{% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+    <form action="{{ url_for('addTraining') }}" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="trgidForm" class="form-label">Training ID</label>
+                    <input type="number" class="form-control" id="trgidForm" name="trgid" required>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="mb-3">
+                    <label for="depAirportForm" class="form-label">Training Name</label>
+                    <input type="text" class="form-control" id="depAirportForm" name="trgname" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="depAirportForm" class="form-label">Training Description</label>
+                    <input type="text" class="form-control" id="depAirportForm" name="trgdesc" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="arrAirportForm" class="form-label">Trainer SAP</label>
+                    <input type="number" class="form-control" id="arrAirportForm" maxlength="8" name="trainerid"
+                        required>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="mb-3">
+                    <label for="arrAirportForm" class="form-label">Trainee SAP</label>
+                    <input type="number" class="form-control" id="arrAirportForm" maxlength="8" name="traineeid"
+                        required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label for="exampleInputPassword1" class="form-label">Training Location</label>
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                        name="trglocation">
+                        <option selected></option>
+                        <option value="DEL">New Delhi</option>
+                        <option value="BOM">Mumbai</option>
+                        <option value="BLR">Bengaluru</option>
+                        <option value="HYD">Hyderabad</option>
+                        <option value="MAA">Chennai</option>
+                        <option value="CCU">Kolkata</option>
+                    </select>
+                    <label for="floatingSelect">Choose Assigned Training Location </label>
+                </div>
+            </div>
+
+            <div class='col'>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Date of Training</label>
+                    <input type="date" class="form-control" id="medicalform" name="trgdate">
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="mb-3">
+                    <label for="durationForm" class="form-label">Duration</label>
+                    <input type="text" class="form-control" id="durationForm" name="duration" pattern="^[0-9]{4}$"
+                        maxlength="4" required>
+                    <small>Format: HHMM (24-hour)</small>
+                </div>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Training</button>
+    </form>
+</div>
+{% endblock %}
