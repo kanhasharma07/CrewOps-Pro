@@ -120,9 +120,9 @@ def addAME():
 def viewAME():
     actype = {
         "A320": "Airbus A320",
-        "B737": "Boeing 737",
-        "B777": "Boeing 777",
-        "B787": "Boeing 787",
+        "B737": "Boeing B737",
+        "B777": "Boeing B777",
+        "B787": "Boeing B787",
         "A350": "Airbus A350",
     }
     crewData = AMECrew.viewCrew()
