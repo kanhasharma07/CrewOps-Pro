@@ -2,6 +2,7 @@ from datetime import date
 from typing import Any, Optional
 from pydantic import BaseModel, field_validator
 
+
 class FlightCrewModel(BaseModel):
     """
     FlightCrew class represents a flight crew member.
@@ -20,6 +21,7 @@ class FlightCrewModel(BaseModel):
         login (Optional[str]): The login of the crew member. Defaults to None.
         pw (str): The password of the crew member.
     """
+
     # Data Fields
     sap: int
     fname: str
@@ -34,12 +36,12 @@ class FlightCrewModel(BaseModel):
     login: Optional[str] = None
     pw: str
 
-    #INIT to set Login=SAP
+    # INIT to set Login=SAP
     def model_post_init(self, __context: Any) -> None:
         if self.login is None:
             self.login = str(self.sap)
         return super().model_post_init(__context)
-    
+
     # Validations
     # StaffID Validation
     @field_validator("sap")
@@ -63,7 +65,7 @@ class FlightCrewModel(BaseModel):
         if len(sap_str) != sap_len:
             raise ValueError(f"SAP (Staff ID) Must be exactly {sap_len} digits long.")
         return value
-    
+
     # First Name Validation
     @field_validator("fname")
     @classmethod
@@ -113,7 +115,7 @@ class FlightCrewModel(BaseModel):
         if len(value) > 255:
             raise ValueError("Last Name length should not exceed 255 characters.")
         return value.title()
-    
+
     # Designation Validation
     @field_validator("desig")
     @classmethod
@@ -134,11 +136,13 @@ class FlightCrewModel(BaseModel):
         if not value:
             raise ValueError("Designation cannot be empty.")
         if not value.replace(" ", "").isalpha():
-            raise ValueError("Designation should only contain alphabetic characters and spaces.")
+            raise ValueError(
+                "Designation should only contain alphabetic characters and spaces."
+            )
         if len(value) > 255:
             raise ValueError("Designation length should not exceed 255 characters.")
         return value.upper()
-    
+
     # Mobile Number Validation
     @field_validator("mob")
     @classmethod
@@ -161,7 +165,7 @@ class FlightCrewModel(BaseModel):
         if len(mob_str) != mob_len:
             raise ValueError(f"Mobile number Must be exactly {mob_len} digits long.")
         return value
-    
+
     # ATPL Holder Validation
     @field_validator("atpl_holder")
     @classmethod
@@ -182,7 +186,7 @@ class FlightCrewModel(BaseModel):
         if not isinstance(value, bool):
             raise ValueError("ATPL holder value should be a boolean.")
         return value
-    
+
     # Licence No. Validity
     @field_validator("licence")
     @classmethod
@@ -206,7 +210,7 @@ class FlightCrewModel(BaseModel):
         if not value:
             raise ValueError("Licence Number is mandatory and can not be empty")
         return value
-    
+
     # Medical Validity Validation
     @field_validator("medical_validity")
     @classmethod
@@ -228,7 +232,7 @@ class FlightCrewModel(BaseModel):
         if value < today:
             raise ValueError("Medical validity date cannot be in the past.")
         return value
-    
+
     # Base Ops Validation
     @field_validator("base_ops")
     @classmethod
@@ -251,7 +255,7 @@ class FlightCrewModel(BaseModel):
         if not value.isalpha() or len(value) != 3:
             raise ValueError("Base ops should only contain 3 alphabetical characters.")
         return value.upper()
-    
+
     # Availability Validation
     @field_validator("availability")
     @classmethod
@@ -272,7 +276,7 @@ class FlightCrewModel(BaseModel):
         if not isinstance(value, bool):
             raise ValueError("Availability value should be a boolean.")
         return value
-    
+
     # Login Validation
     @field_validator("login")
     @classmethod
@@ -288,15 +292,15 @@ class FlightCrewModel(BaseModel):
         Returns:
         - str: Provided "login" value.
 
-        """ 
-        
+        """
+
         # Check if provided login value is unique
         def login_isUnique():
             pass
-            
+
         return value  # Return the modified login value
 
-    #Password Validation
+    # Password Validation
     @field_validator("pw")
     @classmethod
     def is_pw_valid(cls, value):

@@ -2,8 +2,9 @@ import time
 from pydantic import BaseModel, field_validator
 from datetime import date, time
 
+
 class TrainingModel(BaseModel):
-    
+
     # Data Fields
     training_id: int
     training_name: str
@@ -13,7 +14,7 @@ class TrainingModel(BaseModel):
     training_date: date
     location: str
     duration: str
-    
+
     # Validations
     # Trainer ID Validation
     @field_validator("trainer_id")
@@ -35,9 +36,11 @@ class TrainingModel(BaseModel):
         sap_len = 8
         sap_str = str(value)
         if len(sap_str) != sap_len:
-            raise ValueError(f"Trainer SAP (Staff ID) Must be exactly {sap_len} digits long.")
+            raise ValueError(
+                f"Trainer SAP (Staff ID) Must be exactly {sap_len} digits long."
+            )
         return value
-    
+
     # Trainee ID Validation
     @field_validator("trainee_id")
     @classmethod
@@ -58,9 +61,11 @@ class TrainingModel(BaseModel):
         sap_len = 8
         sap_str = str(value)
         if len(sap_str) != sap_len:
-            raise ValueError(f"Trainee SAP (Staff ID) Must be exactly {sap_len} digits long.")
+            raise ValueError(
+                f"Trainee SAP (Staff ID) Must be exactly {sap_len} digits long."
+            )
         return value
-    
+
     # Training Date Validation
     @field_validator("training_date")
     @classmethod
@@ -82,9 +87,9 @@ class TrainingModel(BaseModel):
         if value < today:
             raise ValueError("Training Date date cannot be in the past.")
         return value
-    
+
     # DEP Validations
-    @field_validator('location')
+    @field_validator("location")
     @classmethod
     def is_iata_valid(cls, value):
         """
@@ -103,5 +108,7 @@ class TrainingModel(BaseModel):
         if not value:
             raise ValueError("Station IATA Code cannot be empty.")
         if not value.isalpha() or len(value) != 3:
-            raise ValueError("Station IATA Code should only contain 3 alphabetical characters.")
+            raise ValueError(
+                "Station IATA Code should only contain 3 alphabetical characters."
+            )
         return value.upper()

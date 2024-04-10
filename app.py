@@ -1,11 +1,10 @@
-from crypt import methods
 from aircraft import Aircraft
 from flight_crew import FlightCrew
 from ame_crew import AMECrew
 from flights import Flight
 from roster import Roster
 from training import Training
-from flask import Flask, url_for, redirect, render_template, request
+from flask import Flask, render_template, request
 
 
 app = Flask(__name__)
@@ -248,29 +247,32 @@ def deleteFlight():
         Flight.deleteFlight(flt_no)
         return render_template("deleteFlightSuccess.html", flt_no=flt_no)
 
+
 # MONTHLY ROSTER MANAGEMENT
 @app.route("/createRoster", methods=["GET", "POST"])
 def createRoster():
-    if request.method=="GET":
+    if request.method == "GET":
         return render_template("createRoster.html")
     else:
         month = int(request.form["month"])
         Roster.addRoster(month=month)
         return render_template("createRosterSuccessful.html")
 
+
 @app.route("/viewRoster", methods=["GET", "POST"])
 def viewRoster():
-    if request.method=="GET":
+    if request.method == "GET":
         return render_template("rosterSAPInput.html")
     else:
-        sap = int(request.form['sap'])
+        sap = int(request.form["sap"])
         pairs = Roster.viewYourRoster(sap=sap)
-        return render_template("viewRoster.html", pairs = pairs)
+        return render_template("viewRoster.html", pairs=pairs)
+
 
 # TRAINING MANAGEMENT
 @app.route("/addTraining.", methods=["GET", "POST"])
 def addTraining():
-    if request.method=="GET":
+    if request.method == "GET":
         return render_template("addTraining.html")
     else:
         trgdata = [
@@ -281,28 +283,32 @@ def addTraining():
             request.form["traineeid"],
             request.form["trgdate"],
             request.form["trglocation"],
-            [request.form["duration"][0:2], request.form["duration"][2:4]]
+            [request.form["duration"][0:2], request.form["duration"][2:4]],
         ]
         Training.addTraining(trgdata=trgdata)
-        
+
         FlightCrew.updateAvail(int(request.form["trainerid"]), False)
         FlightCrew.updateAvail(int(request.form["traineeid"]), False)
-        
+
         return render_template("addTrainingSuccess.html")
+
 
 @app.route("/viewTrainings")
 def viewTrainings():
     trgdata = Training.viewTrainings()
-    return render_template("viewTraining.html", trgdata = trgdata)
+    return render_template("viewTraining.html", trgdata=trgdata)
+
 
 @app.route("/deleteTraining", methods=["GET", "POST"])
 def deleteTraining():
-    if request.method=="GET":
+    if request.method == "GET":
         return render_template("deleteTraining.html")
     else:
         trgid = int(request.form["trgid"])
         Training.deleteTraining(trgid)
         return render_template("deleteTrainingSuccess.html")
+
+
 # @app.route('/test')
 # def test():
 #     return render_template('deleteCrew.html')

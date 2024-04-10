@@ -41,7 +41,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{url_for('addTraining')}}">Add Pilot Training</a></li>
-                            <li><a class="dropdown-item" href="{{url_for('viewTrainings')}}">View Scheduled Trainings</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('viewTrainings')}}">View Scheduled
+                                    Trainings</a></li>
                             <li><a class="dropdown-item" href="{{url_for('deleteTraining')}}">Delete Trainings</a></li>
                         </ul>
                     </li>
@@ -83,12 +84,13 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {% block navbarroster %}{% endblock %}" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {% block navbarroster %}{% endblock %}" href="#"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <b>Monthly Roster</b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{url_for('createRoster')}}">Create New Monthly Roster</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('createRoster')}}">Create New Monthly
+                                    Roster</a></li>
                             <li><a class="dropdown-item" href="{{url_for('viewRoster')}}">View Your Roster</a></li>
                         </ul>
                     </li>

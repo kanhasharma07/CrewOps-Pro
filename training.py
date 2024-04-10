@@ -39,7 +39,7 @@ class Training:
                 JOIN flight_crew fc2 ON t.trainee = fc2.staffid"""
         db.execute(query)
         return db.fetchall()
-    
+
     @staticmethod
     def deleteTraining(trgid: int):
         query = f"DELETE FROM {Training.TABLENAME} WHERE training_id={trgid}"

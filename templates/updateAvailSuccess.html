@@ -6,7 +6,8 @@
 <div class="p-5 mb-4 bg-success-subtle text-emphasis-success rounded-3">
     <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">Crew Availability Updated Successfuly</h1>
-        <p class="col-md-8 fs-4">Staff ID: {{sap}} is now {{"on leave" if availBool.upper()=="FALSE" else "available for flying duty"}}.</p>
+        <p class="col-md-8 fs-4">Staff ID: {{sap}} is now {{"on leave" if availBool.upper()=="FALSE" else "available for
+            flying duty"}}.</p>
         <a class="btn btn-primary" href="{{url_for('home_page')}}" role="button">Return to Home</a>
         <a class="btn btn-primary" href="{{url_for('viewCrew')}}" role="button">View Crew Database</a>
     </div>

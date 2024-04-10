@@ -29,13 +29,14 @@ class RosterModel(BaseModel):
     - `p1_id`: Represents the ID of the first staff member.
     - `p2_id`: Represents the ID of the second staff member.
     """
+
     # Data Fields
     flight_date: date
     flight_no: int
     msn: int
     p1_id: int
     p2_id: int
-    
+
     # Validations
     # Flight Date Validation
     @field_validator("flight_date")
@@ -58,32 +59,33 @@ class RosterModel(BaseModel):
         if value < today:
             raise ValueError("Flight Date date cannot be in the past.")
         return value
-    
+
     # Flight_no Validation
-    @field_validator('flight_no')
+    @field_validator("flight_no")
     @classmethod
     def is_flightno_valid(cls, value):
         # Length 5 or 6 only
         if not (len(value) == 4 or len(value) == 5):
-            raise ValueError('Length of Flight Number must either 4 or 5')
+            raise ValueError("Length of Flight Number must either 4 or 5")
         return value.upper()
-        
+
     # MSN Validation
-    @field_validator('msn')
+    @field_validator("msn")
     @classmethod
     def is_msn_valid(cls, value):
         # Should not be Empty
         if not value:
-            raise ValueError('MSN can not be empty')
-        
+            raise ValueError("MSN can not be empty")
+
         # should be unique
         def is_msn_unique():
             pass
             return True
+
         if not is_msn_unique():
-            raise ValueError('MSN is already assigned to an Airframe')
+            raise ValueError("MSN is already assigned to an Airframe")
         return value
-    
+
     # P1 SAP Validation
     @field_validator("p1_id")
     @classmethod
@@ -104,9 +106,11 @@ class RosterModel(BaseModel):
         sap_len = 8
         sap_str = str(value)
         if len(sap_str) != sap_len:
-            raise ValueError(f"P1 SAP (Staff ID) Must be exactly {sap_len} digits long.")
+            raise ValueError(
+                f"P1 SAP (Staff ID) Must be exactly {sap_len} digits long."
+            )
         return value
-    
+
     # P2 SAP Validation
     @field_validator("p2_id")
     @classmethod
@@ -127,5 +131,7 @@ class RosterModel(BaseModel):
         sap_len = 8
         sap_str = str(value)
         if len(sap_str) != sap_len:
-            raise ValueError(f"P2 SAP (Staff ID) Must be exactly {sap_len} digits long.")
+            raise ValueError(
+                f"P2 SAP (Staff ID) Must be exactly {sap_len} digits long."
+            )
         return value
