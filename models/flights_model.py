@@ -26,7 +26,7 @@ class FlightModel(BaseModel):
     # DEP Validations
     @field_validator("dep")
     @classmethod
-    def is_dep_valid(cls, value):
+    def is_dep_valid(cls, value: str):
         """
         Check if the station IATA Code Value is valid.
 
@@ -51,7 +51,7 @@ class FlightModel(BaseModel):
     # ARR Validations
     @field_validator("arr")
     @classmethod
-    def is_arr_valid(cls, value):
+    def is_arr_valid(cls, value: str):
         """
         Check if the station IATA Code Value is valid.
 
@@ -76,7 +76,7 @@ class FlightModel(BaseModel):
     # A/C Type Validations
     @field_validator("actype")
     @classmethod
-    def is_actype_valid(cls, value):
+    def is_actype_valid(cls, value: str):
         """
         Check if the A/C Type value is valid.
 

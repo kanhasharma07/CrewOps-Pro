@@ -21,20 +21,12 @@ class AircraftModel(BaseModel):
         if not value:
             raise ValueError("MSN can not be empty")
 
-        # should be unique
-        def is_msn_unique():
-            pass
-            return True
-
-        if not is_msn_unique():
-            raise ValueError("MSN is already assigned to an Airframe")
-
         return value
 
     # A/C type validation
     @field_validator("actype")
     @classmethod
-    def is_actype_valid(cls, value):
+    def is_actype_valid(cls, value: str):
         """
         Check if the A/C Type value is valid.
 

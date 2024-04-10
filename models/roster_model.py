@@ -77,13 +77,6 @@ class RosterModel(BaseModel):
         if not value:
             raise ValueError("MSN can not be empty")
 
-        # should be unique
-        def is_msn_unique():
-            pass
-            return True
-
-        if not is_msn_unique():
-            raise ValueError("MSN is already assigned to an Airframe")
         return value
 
     # P1 SAP Validation

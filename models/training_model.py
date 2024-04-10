@@ -1,6 +1,5 @@
-import time
 from pydantic import BaseModel, field_validator
-from datetime import date, time
+from datetime import date
 
 
 class TrainingModel(BaseModel):

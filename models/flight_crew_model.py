@@ -94,7 +94,7 @@ class FlightCrewModel(BaseModel):
     # Last Name Validation
     @field_validator("lname")
     @classmethod
-    def is_lname_valid(cls, value):
+    def is_lname_valid(cls, value: str):
         """
         Check if the last name value is valid.
 
@@ -119,7 +119,7 @@ class FlightCrewModel(BaseModel):
     # Designation Validation
     @field_validator("desig")
     @classmethod
-    def is_desig_valid(cls, value):
+    def is_desig_valid(cls, value: str):
         """
         Check if the designation value is valid.
 
