@@ -40,22 +40,28 @@ class Aircraft:
         None
 
         Note:
-        - The method creates an instance of the AircraftModel class using the provided aircraft data.
+        - The method validates the length and types of the `acdata` list before accessing its attributes.
+        - The method creates an instance of the AircraftModel class using the validated aircraft data.
         - The method then executes an SQL query to insert the aircraft data into the database.
         - The method commits the changes to the database.
 
         Example:
         addAircraft([123, 'Boeing', 'ABC123', True, 'CFM56', 5000])
         """
-        aeroplane = AircraftModel(
-            msn=acdata[0],
-            actype=acdata[1],
-            regn=acdata[2],
-            availability=acdata[3],
-            engine=acdata[4],
-            engine_hours=acdata[5],
+        if len(acdata) != 6 or not all(isinstance(item, (int, str, bool)) for item in acdata):
+            raise ValueError("Invalid aircraft data")
+
+        aeroplane = AircraftModel.model_validate(
+            {
+                "msn": acdata[0],
+                "actype": acdata[1],
+                "regn": acdata[2],
+                "availability": acdata[3],
+                "engine": acdata[4],
+                "engine_hours": acdata[5],
+            }
         )
-        query = f"INSERT INTO {Aircraft.tablename} (msn, type, regn, availability, engine, engine_hours) VALUES (%s,%s,%s,%s,%s,%s)"
+        query = "INSERT INTO {tablename} (msn, type, regn, availability, engine, engine_hours) VALUES (%s,%s,%s,%s,%s,%s)".format(tablename=Aircraft.tablename)
         db.execute(query, tuple(aeroplane.model_dump().values()))
         connection.commit()
 
