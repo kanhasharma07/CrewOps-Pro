@@ -3,10 +3,24 @@ from backend.connection import db, connection
 
 
 class Flight:
+    """
+    The Flight class represents a utility class for managing flight data in the database.
+
+    Attributes:
+        tablename (str): The name of the table in the database where flight data is stored.
+
+    Methods:
+        addFlight(flightData: list) -> None: Adds a new flight to the database.
+        viewFlights() -> list: Retrieves all flights from the database.
+        deleteFlight(flight_no: int) -> None: Deletes a flight from the database.
+        allFlights() -> list[FlightModel]: Retrieves all flights from the database as a list of FlightModel objects.
+
+    """
+
     tablename = "flights"
 
     @staticmethod
-    def addFlight(flightData: list):
+    def addFlight(flightData: list) -> None:
         flt = FlightModel(
             flight_no=flightData[0],
             dep=flightData[1],
@@ -22,20 +36,27 @@ class Flight:
         connection.commit()
 
     @staticmethod
-    def viewFlights():
+    def viewFlights() -> list:
         query = f"SELECT * FROM {Flight.tablename}"
         db.execute(query)
         return db.fetchall()
 
     @staticmethod
-    def deleteFlight(flight_no: int):
+    def deleteFlight(flight_no: int) -> None:
         query = f"DELETE FROM {Flight.tablename} WHERE flight_no={flight_no}"
         db.execute(query)
         connection.commit()
 
     # Returns list[FlightModel] from DB
     @staticmethod
-    def allFlights():
+    def allFlights() -> list[FlightModel]:
+        """
+        Returns a list of FlightModel objects representing all flights in the database.
+
+        Returns:
+            list[FlightModel]: A list of FlightModel objects representing all flights in the database.
+
+        """
         query = f"SELECT * FROM {Flight.tablename}"
         db.execute(query)
         flights = db.fetchall()

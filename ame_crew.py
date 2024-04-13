@@ -3,12 +3,35 @@ from backend.connection import connection, db
 
 
 class AMECrew:
+    """
+    AMECrew class represents a class for managing AME Crew members.
 
+    Methods:
+        addCrew(crewData: list) -> None:
+            Adds a new crew member to the database.
+            Parameters:
+                crewData (list): A list containing the crew member's data in the following order: [sap, name, fleet_cert, pw].
+        
+        deleteCrew(sap: int) -> None:
+            Deletes a crew member from the database.
+            Parameters:
+                sap (int): The SAP (Staff ID) of the crew member to be deleted.
+        
+        viewCrew() -> List[Tuple]:
+            Retrieves all crew members from the database.
+            Returns:
+                List[Tuple]: A list of tuples, where each tuple represents a crew member's data.
+        
+        modifyCrew(newData: list, sap: int) -> None:
+            Modifies the data of a crew member in the database.
+            Parameters:
+                newData (list): A list containing the updated data of the crew member in the following order: [sap, name, fleet_cert, pw].
+                sap (int): The SAP (Staff ID) of the crew member to be modified.
+    """
     tablename = "ame_crew"
 
     @staticmethod
     def addCrew(crewData: list):
-
         ame = AMECrewModel(
             sap=crewData[0],
             name=crewData[1],
@@ -47,8 +70,3 @@ class AMECrew:
         db.execute(queryNew, data)
         connection.commit()
 
-
-if __name__ == "__main__":
-    pass
-    # AMECrew.addCrew(80050322, 'kanha sharma', 'b737', 'heeyaw')
-    # AMECrew.deleteCrew(80050322)
