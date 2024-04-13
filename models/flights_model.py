@@ -3,6 +3,25 @@ from pydantic import BaseModel, field_validator
 
 
 class FlightModel(BaseModel):
+    """
+    FlightModel class represents a model for flight data.
+
+    Attributes:
+        flight_no (int): The flight number.
+        dep (str): The departure station IATA code.
+        arr (str): The arrival station IATA code.
+        actype (str): The aircraft type.
+        etd (str): The estimated time of departure.
+        eta (str): The estimated time of arrival.
+        duration (str): The duration of the flight.
+
+    Validations:
+        - flight_no: Validates the length of the flight number. It should be either 3 or 4 characters long.
+        - dep: Validates the departure station IATA code. It should not be empty and should contain 3 alphabetical characters.
+        - arr: Validates the arrival station IATA code. It should not be empty and should contain 3 alphabetical characters.
+        - actype: Validates the aircraft type. It should not be empty, should contain 4 alphanumeric characters, and should be 4 characters long.
+
+    """
 
     # Data Fields
     flight_no: int
@@ -27,19 +46,6 @@ class FlightModel(BaseModel):
     @field_validator("dep")
     @classmethod
     def is_dep_valid(cls, value: str):
-        """
-        Check if the station IATA Code Value is valid.
-
-        Parameters:
-        - value (str): The base ops value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the IATA Code value is not exactly 3 alphabetical characters.
-
-        Returns:
-        - str: The validated base ops value.
-
-        """
         if not value:
             raise ValueError("Departure/Arrival Station IATA Code cannot be empty.")
         if not value.isalpha() or len(value) != 3:
@@ -52,19 +58,6 @@ class FlightModel(BaseModel):
     @field_validator("arr")
     @classmethod
     def is_arr_valid(cls, value: str):
-        """
-        Check if the station IATA Code Value is valid.
-
-        Parameters:
-        - value (str): The base ops value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the IATA Code value is not exactly 3 alphabetical characters.
-
-        Returns:
-        - str: The validated base ops value.
-
-        """
         if not value:
             raise ValueError("Departure/Arrival Station IATA Code cannot be empty.")
         if not value.isalpha() or len(value) != 3:
@@ -77,19 +70,6 @@ class FlightModel(BaseModel):
     @field_validator("actype")
     @classmethod
     def is_actype_valid(cls, value: str):
-        """
-        Check if the A/C Type value is valid.
-
-        Parameters:
-        - value (str): The A/C Type value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the A/C Type value is empty or contains any non-alphanumeric characters or is not exactly 4 characters long.
-
-        Returns:
-        - str: The validated A/C Type value.
-
-        """
         if not value:
             raise ValueError("A/C Type cannot be empty.")
         if not value.isalnum():

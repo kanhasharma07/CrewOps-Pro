@@ -4,14 +4,38 @@ from pydantic import BaseModel, field_validator
 
 class AMECrewModel(BaseModel):
     """
-    AMECrew class represents a crew member in the AME (Aircraft Maintenance Engineer) system.
+    AMECrewModel class represents a model for AME Crew members.
 
     Attributes:
-        sap (int): The SAP (Staff ID) of the crew member. Must be exactly 8 digits long.
-        name (str): The name of the crew member. Should only contain alphabetic characters and spaces, and should not exceed 255 characters.
-        fleet_cert (str): The fleet certification of the crew member. Must be exactly 4 alphanumeric characters.
-        login (Optional[str]): The login of the crew member. If not provided, it will be set to the SAP value.
-        pw (str): The password of the crew member. Should not exceed 20 characters.
+        sap (int): The SAP (Staff ID) of the crew member.
+        name (str): The name of the crew member.
+        fleet_cert (str): The fleet certification of the crew member.
+        login (str, optional): The login of the crew member. Defaults to None.
+        pw (str): The password of the crew member.
+
+    Methods:
+        model_post_init(__context: Any) -> None:
+            Initializes the login attribute to the SAP value if it is None.
+
+        is_sap_valid(value) -> int:
+            Validates the SAP (Staff ID) value.
+            Raises a ValueError if the SAP value is not exactly 8 digits long.
+            Returns the validated SAP value.
+
+        is_name_valid(value) -> str:
+            Validates the name value.
+            Raises a ValueError if the name value is empty, contains special characters, or exceeds 255 characters.
+            Returns the validated name value.
+
+        is_fleet_valid(value) -> str:
+            Validates the fleet certification value.
+            Raises a ValueError if the fleet certification value is empty, contains non-alphanumeric characters, or is not exactly 4 characters long.
+            Returns the validated fleet certification value.
+
+        is_pw_valid(value) -> str:
+            Validates the password value.
+            Raises a ValueError if the password value is empty or exceeds 20 characters.
+            Returns the validated password value.
     """
 
     # Data Fields
@@ -32,19 +56,6 @@ class AMECrewModel(BaseModel):
     @field_validator("sap")
     @classmethod
     def is_sap_valid(cls, value):
-        """
-        Check if the SAP (Staff ID) value is valid.
-
-        Parameters:
-        - sap_value (int): The SAP (Staff ID) value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the SAP (Staff ID) value is not exactly 8 digits long.
-
-        Returns:
-        - int: The validated SAP (Staff ID) value.
-
-        """
         sap_len = 8
         sap_str = str(value)
         if len(sap_str) != sap_len:
@@ -55,19 +66,6 @@ class AMECrewModel(BaseModel):
     @field_validator("name")
     @classmethod
     def is_name_valid(cls, value):
-        """
-        Check if the name value is valid.
-
-        Parameters:
-        - fname_value (str): The name value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the name value is empty or contains any special characters or is longer than 255 chars.
-
-        Returns:
-        - str: The validated name value.
-
-        """
         if not value:
             raise ValueError("Name cannot be empty.")
         if not value.replace(" ", "").isalpha():
@@ -82,19 +80,6 @@ class AMECrewModel(BaseModel):
     @field_validator("fleet_cert")
     @classmethod
     def is_fleet_valid(cls, value):
-        """
-        Check if the Fleet Certification value is valid.
-
-        Parameters:
-        - value (str): The fleet_cert value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the fleet_cert value is empty or contains any non-alphanumeric characters or is not exactly 4 characters long.
-
-        Returns:
-        - str: The validated fleet_cert value.
-
-        """
         if not value:
             raise ValueError("Fleet cannot be empty.")
         if not value.isalnum():
@@ -103,47 +88,10 @@ class AMECrewModel(BaseModel):
             raise ValueError("Provide a valid 4 character Fleet Certification")
         return value.title()
 
-    # Login Validation
-    @field_validator("login")
-    @classmethod
-    def is_login_valid(cls, value):
-        """
-        Check if the login value is valid.
-
-        Parameters:
-        - login_value (str): The login value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the login value is not alphanumeric or exceeds 20 chars in length
-
-        Returns:
-        - str: Provided "login" value.
-
-        """
-
-        # Check if provided login value is unique
-        def login_isUnique():
-            pass
-
-        return value  # Return the login value
-
     # Password Validation
     @field_validator("pw")
     @classmethod
     def is_pw_valid(cls, value):
-        """
-        Check if the password value is valid.
-
-        Parameters:
-        - pw_value (str): The password value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the password value is empty.
-
-        Returns:
-        - str: The validated password value.
-
-        """
         if not value:
             raise ValueError("Password cannot be empty.")
         if len(value) > 20:

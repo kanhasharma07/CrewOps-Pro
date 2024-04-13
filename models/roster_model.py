@@ -4,32 +4,22 @@ from datetime import date
 
 class RosterModel(BaseModel):
     """
-    The `Roster` class is a Pydantic model that represents a roster for a flight. It contains data fields for the flight date, flight number, MSN (aircraft serial number), and the IDs of two staff members. It also includes validation methods for each field to ensure the data is valid.
+    The 'RosterModel' class represents a model for a roster entry. It inherits from the 'BaseModel' class provided by the 'pydantic' library.
 
-    Example Usage:
-        roster = Roster(
-            flight_date=date(2022, 1, 1),
-            flight_no="ABC123",
-            msn=12345,
-            p1_id=12345678,
-            p2_id=87654321
-        )
+    Attributes:
+        flight_date (date): The date of the flight.
+        flight_no (int): The flight number.
+        msn (int): The MSN (Manufacturer Serial Number) of the aircraft.
+        p1_id (int): The SAP (Staff ID) of the first crew member.
+        p2_id (int): The SAP (Staff ID) of the second crew member.
 
-    Main functionalities:
-    - Storing and validating data for a flight roster, including the flight date, flight number, MSN, and staff IDs.
-    - Ensuring that the flight date is not in the past.
-    - Validating the length of the flight number.
-    - Checking that the MSN is not empty and is unique.
-    - Verifying that the staff IDs are exactly 8 digits long.
-
-    Fields:
-    - `flight_date`: Represents the date of the flight.
-    - `flight_no`: Represents the flight number.
-    - `msn`: Represents the MSN (aircraft serial number).
-    - `p1_id`: Represents the ID of the first staff member.
-    - `p2_id`: Represents the ID of the second staff member.
+    Validations:
+        - Flight Date Validation: The 'flight_date' attribute must not be in the past.
+        - Flight Number Validation: The 'flight_no' attribute must have a length of either 4 or 5.
+        - MSN Validation: The 'msn' attribute must not be empty.
+        - P1 SAP Validation: The 'p1_id' attribute must be exactly 8 digits long.
+        - P2 SAP Validation: The 'p2_id' attribute must be exactly 8 digits long.
     """
-
     # Data Fields
     flight_date: date
     flight_no: int
@@ -42,19 +32,6 @@ class RosterModel(BaseModel):
     @field_validator("flight_date")
     @classmethod
     def is_flightdate_valid(cls, value):
-        """
-        Check if the Flight Date value is valid.
-
-        Parameters:
-        - medical_validity_value (date): The Flight Date value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the Flight Date value is in the past.
-
-        Returns:
-        - date: The validated Flight Date value.
-
-        """
         today = date.today()
         if value < today:
             raise ValueError("Flight Date date cannot be in the past.")
@@ -83,19 +60,6 @@ class RosterModel(BaseModel):
     @field_validator("p1_id")
     @classmethod
     def is_p1id_valid(cls, value):
-        """
-        Check if the P1 SAP (Staff ID) value is valid.
-
-        Parameters:
-        - sap_value (int): The P1 SAP (Staff ID) value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the P1 SAP (Staff ID) value is not exactly 8 digits long.
-
-        Returns:
-        - int: The validated P1 SAP (Staff ID) value.
-
-        """
         sap_len = 8
         sap_str = str(value)
         if len(sap_str) != sap_len:
@@ -108,19 +72,6 @@ class RosterModel(BaseModel):
     @field_validator("p2_id")
     @classmethod
     def is_p2id_valid(cls, value):
-        """
-        Check if the P2 SAP (Staff ID) value is valid.
-
-        Parameters:
-        - sap_value (int): The P2 SAP (Staff ID) value to be validated. Auto-passed.
-
-        Raises:
-        - ValueError: If the P2 SAP (Staff ID) value is not exactly 8 digits long.
-
-        Returns:
-        - int: The validated P2 SAP (Staff ID) value.
-
-        """
         sap_len = 8
         sap_str = str(value)
         if len(sap_str) != sap_len:
