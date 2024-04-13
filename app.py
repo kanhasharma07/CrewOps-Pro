@@ -6,6 +6,38 @@ from roster import Roster
 from training import Training
 from flask import Flask, render_template, request
 
+"""
+A Flask application that handles various routes for managing flight crew, AME crew, aircraft, flights, monthly roster, and training.
+Each route corresponds to a specific functionality and handles both GET and POST requests.
+
+The available routes and their functionalities are as follows:
+
+- "/" and "/home": Renders the home page template.
+- "/addCrew": Handles the addition of flight crew data to the database.
+- "/viewCrew": Retrieves and renders the flight crew data from the database.
+- "/deleteCrew": Handles the deletion of flight crew data from the database.
+- "/modifyCrew": Handles the modification of flight crew data in the database.
+- "/applyLeave": Handles the updating of flight crew availability based on leave status.
+- "/addAME": Handles the addition of AME crew data to the database.
+- "/viewAME": Retrieves and renders the AME crew data from the database.
+- "/deleteAME": Handles the deletion of AME crew data from the database.
+- "/modifyAME": Handles the modification of AME crew data in the database.
+- "/addAC": Handles the addition of aircraft data to the database.
+- "/viewAC": Retrieves and renders the aircraft data from the database.
+- "/deleteAC": Handles the deletion of aircraft data from the database.
+- "/modifyAC": Handles the modification of aircraft data in the database.
+- "/addFlight": Handles the addition of flight data to the database.
+- "/viewFlights": Retrieves and renders the flight data from the database.
+- "/deleteFlight": Handles the deletion of flight data from the database.
+- "/createRoster": Handles the creation of monthly roster data in the database.
+- "/viewRoster": Retrieves and renders the monthly roster data for a specific flight crew member.
+- "/addTraining": Handles the addition of training data to the database.
+- "/viewTrainings": Retrieves and renders the training data from the database.
+- "/deleteTraining": Handles the deletion of training data from the database.
+
+Note: The code also includes the necessary import statements and the Flask application setup.
+
+"""
 
 app = Flask(__name__)
 
