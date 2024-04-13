@@ -1,3 +1,4 @@
+import mysql.connector
 from backend.connection import db, connection
 from models.aircraft_model import AircraftModel
 
@@ -96,11 +97,18 @@ class Aircraft:
         None
 
         Note:
-        - The method executes an SQL query to delete the aircraft from the database based on its MSN.
+        - The method first checks if the aircraft with the given MSN exists in the database.
+        - If the aircraft exists, it executes an SQL query to delete the aircraft from the database based on its MSN.
+        - If the aircraft doesn't exist, it raises a `ValueError` indicating that the aircraft was not found.
         - The method commits the changes to the database.
         """
-        query = f"DELETE FROM {Aircraft.tablename} WHERE msn={msn}"
+        query = f"SELECT * FROM {Aircraft.tablename} WHERE msn={msn}"
         db.execute(query)
+        aircraft = db.fetchone()
+        if aircraft is None:
+            raise ValueError("Aircraft not found")
+        delete_query = f"DELETE FROM {Aircraft.tablename} WHERE msn={msn}"
+        db.execute(delete_query)
         connection.commit()
 
     @staticmethod
