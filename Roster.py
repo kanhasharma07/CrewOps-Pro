@@ -138,9 +138,7 @@ class Roster:
         flights = Flight.allFlights()  # Returns a list[Flight] of all flights in the DB
 
         dutyTimeP1 = {P1.sap: 0 for P1 in availP1}  # Set duty time 0 of all Crew
-        dutyTimeP2 = {
-            P2.sap: 0 for P2 in availP2
-        }  # at the start of a monthly roster cycle
+        dutyTimeP2 = {P2.sap: 0 for P2 in availP2}  # at the start of a monthly roster cycle
 
         for day in range(1, days_in_months[month]):
             for flight in flights:
@@ -155,10 +153,12 @@ class Roster:
 
                 # Returns list of available aircraft of the required type for each flight in loop
                 availFleet = Aircraft.avaiableFleet(flight.actype)
-
+                print(availFleet)
                 # Create pairing for current flight in loop
                 flt_date = date(year=2024, month=month, day=day)
                 currentFlightNo = flight.flight_no
+                if not availFleet:
+                    continue
                 aircraft = availFleet.pop(0)
                 p1 = FlightCrew.find_suitable_P1(availP1, dutyTimeP1)
                 p2 = FlightCrew.find_suitable_P2(availP2, dutyTimeP2)
