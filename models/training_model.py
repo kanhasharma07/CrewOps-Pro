@@ -68,7 +68,7 @@ class TrainingModel(BaseModel):
             raise ValueError("Training Date date cannot be in the past.")
         return value
 
-    # DEP Validations
+    # Location Validations
     @field_validator("location")
     @classmethod
     def is_iata_valid(cls, value):
