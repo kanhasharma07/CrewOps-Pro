@@ -1,4 +1,3 @@
-import mysql.connector
 from backend.connection import db, connection
 from models.aircraft_model import AircraftModel
 
